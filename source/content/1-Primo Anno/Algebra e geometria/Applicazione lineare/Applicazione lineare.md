@@ -66,4 +66,5 @@ data: "`2024-08-31 20:05`"
 			- $\Longleftarrow$)
 				- suppongo che $ker(f)=\underline{0}$. Dimostro che $f$ è $in$ ovvero che $a\ne b \implies f(a)\ne f(b)\ \ \forall a,b$ oppure $f(a)=f(b)\implies a=b\ \ \forall a,b$ . Suppongo per un qualche $a,b \in V, f(a)=f(b)$ che implica $f(a)-f(b)=\underline{0}$ uso la linearità di $f$ e ottengo che $f(a-b)=\underline{0}$. Ciò vuol dire che ho trovato un elemento del [[Kernel]] $a-b\in ker(f)$ e, per ipotesi so che deve essere $\underline{0}$. Allora $a-b=\underline{0}\implies a=b$ 
 - ## Osservazioni:
-	- come corollario della linearità di una funzione $f$ si ha che $$f(\lambda_1 v_1+...+\lambda_n v_n)=f(\lambda_{1}v_{1})+...+f(\lambda_{n}v_{n})=$$$$=\lambda_{1} f(v_{1})+...+\lambda_{n}f(v_{n})$$
+	- come corollario della linearità di una funzione $f$ si ha che $$f(\lambda_1 v_1+...+\lambda_n v_n)=f(\lambda_{1}v_{1})+...+f(\lambda_{n}v_{n})=$$
+	- $$=\lambda_{1} f(v_{1})+...+\lambda_{n}f(v_{n})$$
