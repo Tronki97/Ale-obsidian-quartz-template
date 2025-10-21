@@ -1,34 +1,20 @@
 {
   "main": {
-    "id": "5324373015726ba8",
+    "id": "343e0e3735ca5bb1",
     "type": "split",
     "children": [
       {
-        "id": "4509724f8bf84da7",
+        "id": "ab5472312aa74dff",
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "223d63d00e0bfa8c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Homepage.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Homepage"
+              "title": "Nuova scheda"
             }
           }
         ]
@@ -37,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "26d76850a5bde9cc",
+    "id": "fd8942c1aba3e4b1",
     "type": "split",
     "children": [
       {
-        "id": "9c4d7ef2cd625768",
+        "id": "b80afbaab7683c01",
         "type": "tabs",
         "children": [
           {
-            "id": "db79be7258f0f00b",
+            "id": "7046dadac295fa3f",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -58,13 +44,13 @@
             }
           },
           {
-            "id": "d68fdf52a817ee6a",
+            "id": "c4a37bfe3a0fcfeb",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "storie",
-                "matchingCase": true,
+                "query": "",
+                "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
@@ -75,7 +61,7 @@
             }
           },
           {
-            "id": "7229ee684758bebd",
+            "id": "174cd5ff1bc529c1",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -88,48 +74,22 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 300
   },
   "right": {
-    "id": "e2f8231889bb1b44",
+    "id": "e246d8969da3124e",
     "type": "split",
     "children": [
       {
-        "id": "f291d8e4b6eacb81",
+        "id": "a0f49e57a7616e26",
         "type": "tabs",
         "children": [
           {
-            "id": "4803e3cd3f4a91ea",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "Flashcard/Flashcard Reti.md",
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "Struttura di Flashcard Reti"
-            }
-          },
-          {
-            "id": "e685526dce0dc2c7",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
-          },
-          {
-            "id": "701d07c75567376b",
+            "id": "78f884a433cbe336",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Flashcard/Flashcard Reti.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,11 +99,11 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Riferimenti a Flashcard Reti"
+              "title": "Riferimenti"
             }
           },
           {
-            "id": "e05915392f4c71f4",
+            "id": "40f726407c69dea7",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
@@ -156,7 +116,7 @@
             }
           },
           {
-            "id": "a4d50505545a40ca",
+            "id": "f1bd82d61bf969a6",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -171,121 +131,37 @@
             }
           },
           {
-            "id": "4910fce83df81f0f",
+            "id": "90752d1dd22910f9",
             "type": "leaf",
             "state": {
-              "type": "all-properties",
+              "type": "outline",
               "state": {
-                "sortOrder": "frequency",
+                "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
-              "icon": "lucide-archive",
-              "title": "Tutte le proprietà"
-            }
-          },
-          {
-            "id": "d36d86def90ec5c1",
-            "type": "leaf",
-            "state": {
-              "type": "calendar",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "calendar"
-            }
-          },
-          {
-            "id": "5b2fb071f72bff9b",
-            "type": "leaf",
-            "state": {
-              "type": "review-queue-list-view",
-              "state": {},
-              "icon": "SpacedRepIcon",
-              "title": "Coda di note da rivedere"
+              "icon": "lucide-list",
+              "title": "Struttura"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 422.5
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "3d-graph:3D Graph": false,
-      "obsidian-spaced-repetition:Rivisita schede": false,
-      "bases:Create new base": false,
       "switcher:Apri selezione rapida": false,
       "graph:Apri vista grafo": false,
       "canvas:Crea nuova lavagna": false,
       "daily-notes:Apri nota del giorno": false,
       "templates:Inserisci modello": false,
       "command-palette:Apri riquadro comandi": false,
-      "markdown-importer:Apri importazione Markdown": false,
-      "audio-recorder:Avvia/ferma registrazione": false,
-      "publish:Pubblica modifiche": false,
-      "darlal-switcher-plus:Open in Headings Mode": false,
-      "darlal-switcher-plus:Open Symbols for the active editor": false,
-      "obsidian-git:Open Git source control": false,
-      "homepage:Open homepage": false,
-      "templater-obsidian:Templater": false,
-      "obsidian-excalidraw-plugin:New drawing": false
+      "bases:Create new base": false
     }
   },
-  "active": "e685526dce0dc2c7",
-  "lastOpenFiles": [
-    "3-Terzo anno/Basi di Dati/architettura dei DBMS/transazioni.md",
-    "Homepage.md",
-    "immagini/Pasted image 20251020201516.png",
-    "3-Terzo anno/Ingegneria del software/sviluppo di un sistema software.md",
-    "immagini/Pasted image 20251020201906.png",
-    "immagini/Pasted image 20251020201721.png",
-    "immagini/Pasted image 20251020201705.png",
-    "immagini/Pasted image 20251020201606.png",
-    "immagini/Pasted image 20251020201546.png",
-    "3-Terzo anno/Ingegneria del software/progettazione dei sistemi software/Design OO in UML.md",
-    "3-Terzo anno/Ingegneria del software/design pattern/Design pattern.md",
-    "3-Terzo anno/Ingegneria del software/design pattern/Pattern strutturali.md",
-    "3-Terzo anno/Ingegneria del software/design pattern/Pattern comportamentali.md",
-    "3-Terzo anno/Ingegneria del software/design pattern/Pattern creazionali.md",
-    "immagini/Pasted image 20251020184239.png",
-    "3-Terzo anno/Ingegneria del software/design pattern",
-    "immagini/Pasted image 20251020194007.png",
-    "immagini/Pasted image 20251020193242.png",
-    "immagini/Pasted image 20251020190413.png",
-    "3-Terzo anno/Ingegneria del software/progettazione dei sistemi software/unified modeling language (UML).md",
-    "3-Terzo anno/Ingegneria del software/architettura dei software/architettura dei software.md",
-    "3-Terzo anno/Ingegneria del software/progettazione dei sistemi software/Sistemi software.md",
-    "2-Secondo Anno/Linguaggi di Programmazione/modulo3/Tipi polimorfi.md",
-    "3-Terzo anno/Ingegneria del software/architettura dei software",
-    "3-Terzo anno/Ingegneria del software/esercitazioni UML.md",
-    "3-Terzo anno/Basi di Dati/architettura dei DBMS/ARIES (Advanced Recovery and Integrated Extraction System).md",
-    "3-Terzo anno/Basi di Dati/architettura dei DBMS/Architettura dei DBMS.md",
-    "3-Terzo anno/Introduzione all'apprendimento automatico/laboratorio machine learning.md",
-    "3-Terzo anno/Basi di Dati/architettura dei DBMS",
-    "3-Terzo anno/Basi di Dati/SQL/Basic SQL.md",
-    "3-Terzo anno/Basi di Dati/introduzione/introduzione Basi di dati.md",
-    "3-Terzo anno/Introduzione all'apprendimento automatico/Regressione logistica.md",
-    "3-Terzo anno/Consigli Tesi.md",
-    "3-Terzo anno/Introduzione all'apprendimento automatico/approccio probabilistico/Naive Bayes.md",
-    "3-Terzo anno/Introduzione all'apprendimento automatico/approccio probabilistico/Distribuzione congiunta.md",
-    "3-Terzo anno/Basi di Dati/algebra relazionale/Algebra relazionale.md",
-    "3-Terzo anno/Basi di Dati/calcolo relazionale/Calcolo relazionale.md",
-    "3-Terzo anno/Basi di Dati/calcolo relazionale/Datalog.md",
-    "3-Terzo anno/Basi di Dati/calcolo relazionale",
-    "3-Terzo anno/Introduzione all'apprendimento automatico/approccio probabilistico",
-    "3-Terzo anno/Basi di Dati/SQL",
-    "3-Terzo anno/secondo semestre",
-    "3-Terzo anno/primo semestre",
-    "Senza nome.base",
-    "3-Terzo anno/Introduzione all'apprendimento automatico/alberi di decisione",
-    "Senza nome.canvas",
-    "Untitled.canvas",
-    "template/Senza nome.canvas",
-    "programmazione/Untitled.canvas",
-    "Untitled 3.canvas",
-    "Untitled 2.canvas",
-    "Untitled 1.canvas"
-  ]
+  "active": "223d63d00e0bfa8c",
+  "lastOpenFiles": []
 }

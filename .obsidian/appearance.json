@@ -1,13 +1,1 @@
-{
-  "accentColor": "#0b8e21",
-  "cssTheme": "Blue Topaz",
-  "baseFontSize": 23,
-  "theme": "obsidian",
-  "monospaceFontFamily": "Arial",
-  "textFontFamily": "Arial",
-  "baseFontSizeAction": false,
-  "enabledCssSnippets": [
-    "dashboard",
-    "readLineLength"
-  ]
-}
+{}
