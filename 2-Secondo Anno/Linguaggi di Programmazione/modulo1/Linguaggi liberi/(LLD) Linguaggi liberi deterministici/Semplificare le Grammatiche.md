@@ -1,0 +1,153 @@
+---
+tags:
+  - linguaggi
+aliases:
+  - produzione unitaria
+  - simboli inutili
+  - ricorsione sinistra
+  - fattorizzazione a sinistra
+data: "`2024-11-05 11:09`"
+---
+- # Eliminazioni da fare:
+	- ## produzioni $\epsilon$:
+		- del tipo $A\to \epsilon$. Inadatte al [[Bottom-up parsing]] 
+	- ## produzione unitaria:
+		- del tipo $B\to B$ che possono creare dei cicli visto che vanno in dei NT 
+	- ## simboli inutili:
+		- T o NT che non sono raggiungibili dal simbolo iniziale o che non producono parole 
+	- ## ricorsione sinistra:
+		- $A\to A \alpha$ perché inadatte al [[Top-down Parsing]] 
+	- ## fattorizzazione di grammatiche:
+		- raggruppare diverse produzioni per rendere le grammatiche meno non deterministiche.
+- # Semplificare:
+	- ## Eliminare $\epsilon$:
+		- voglio una $G'$ tale che $L(G')=L(G)-\{\epsilon\}$ 
+		- ### Oss:
+			- con $\epsilon \in L(G)$ e voglio una grammatica $G'': L(G)=L(G'')$ 
+			- considero $G'=(NT, T, S, R')$
+			- definisco: 
+				- $$G''=G'\cup \{S'\to \epsilon|S\}$$
+				-  $$G''=(NT\cup \{S'\}, T, S', R'\cup \{S'\to \epsilon|S\})$$
+		- ### Simbolo annullabile:
+			- per definire un algoritmo che la genera bisogna definire un simbolo annullabile :
+				- $A\in NT: S \Rightarrow^{+} \epsilon$
+			- bisogna calcolare tutti quelli appartenenti a quella grammatica
+			- $$N_{0}(G)=\{A\in NT| A\to \epsilon\in R\}$$
+				- insieme dei simboli annullabili al passo 0
+			- $$N_{i+1}=N_{i}(G)\cup\{B\in NT|B\to c_{1}...c_{k}\in R\wedge c_{1},...,c_{k}\in N_{i}(G)\}$$
+			- #### OSS:
+				- questo insieme non può essere infinito siccome $NT$ è finito quindi esiste un passo $i$ al quale $N_{i}(G)=N_{i+1}(G)$ 
+		- dopo aver aver calcolato l’insieme $N(G)$ costruisco la grammatica $G'=(NT, T, S, R')$ 
+		- in $G'$ non metto produzioni del tipo $A\to \epsilon\in R$ e non introduco produzioni del tipo $A\to \epsilon$ 
+		- ### Prop:
+			- data la [[Grammatiche#^653185|grammatica libera]] $G$. $G'$ non ha $\epsilon$-produzioni e $L(G')=L(G)-\{\epsilon\}$ 
+		- ### ES:
+			- ![[Pasted image 20241105224451.png]]
+			- ![[Pasted image 20241105224510.png]]
+	- ## Eliminare le produzioni unitarie:
+		- _coppie unitarie_: $(A,B): A \Rightarrow^{*}B$ 
+		- ### Calcolarle:
+			- $$U_{0}(G)=\{(A,A)|A\in NT\}$$
+			- $$U_{i+1}(G)=U_{i}(G)\cup \{(A,C)| (A,B)\in U_{i}(G)\wedge B\to C\in R\}$$
+		- ### OSS:
+			- $$U_{i}(G)\subseteq U_{i+1}(G)$$
+			- per lo stesso motivo delle degli insiemi di simboli annullabili.
+		- ### Algoritmo:
+			- data $G$ libera, definisco $G'=(NT, T, S, R')$ dove, $\forall (A,B)\in U(G)$ $R'$ contiene tutte le produzioni $A\to \alpha$, dove $B\to \alpha \in R$ _e non è unitaria_.
+		- ## ES:
+			- ![[Pasted image 20241105225620.png|600]]
+			-  ![[Pasted image 20241105225925.png|600]]
+	- ## Eliminare i simboli inutili:
+		- ### Def:
+			- un simbolo $X\in T \cup NT$ :
+				- _Generatore_ $\iff \exists w\in T^{*}\ |X \Rightarrow^{*}w$
+				- _raggiungibile_ $\iff S \Rightarrow^{*} \alpha X \beta$ per qualche $\alpha, \beta \in (T\cup NT)^{*}$ 
+				- _Utile_: se è sia generatore che raggiungibile. Ovvero se $X$ compare in almeno una derivazione  di una stringa $z\in L(G)$ 
+		- ### ES:
+			- ![[Pasted image 20241106123715.png]]
+			- Siccome $B$ non è più raggiungibile posso eliminarlo.
+			- $$G''=\begin{cases} S\to a\end{cases}$$
+			- La grammatica risultante è uguale a quella di partenza ma senza _simboli inutili_ 
+		- ### Calcolare i generatori:
+			- $G_{0}(G)=T$ 
+				- Se $a\in T, a\Rightarrow^{*}a$ allora tutti i terminali sono generatori.
+			- $$G_{i+1}(G)=G_{i}(G)\cup \{B\in NT|B\to c_{1,...,k}\in R \wedge c_{1...k} \in G_{i}(G) \}$$
+			- #### OSS:
+				- nel caso ci sia una produzione $B\to \epsilon$ allora $B$ è considerato come generatore.
+				- $G_{i}(G)\subseteq G_{i+1}(G)$ 
+					- Perché $T\cup NT$ è un insieme finito.
+		- ### Calcolare i raggiungibili:
+			- $$R_{0}(G)=\{S\}$$
+			- $$R_{i+1}(G)=R_{i} \cup \bigcup_{B\in R_{i}, B\to x_{1...k}\in R}  \{x_{1,...,k}\}$$
+			- #### OSS:
+				- $R_{i}(G)\subseteq R_{i+1}(G)$
+					- Perché $T\cup NT$ è un insieme finito.
+		- ### Algoritmo:
+			- Eliminare per primi i simboli _non generatori_, quindi tutte le produzioni che li usano.
+			- dalla grammatica generata dal punto precedente eliminare tutti i simboli _non raggiungibili_ 
+			- La grammatica risultante è equivalente a quella originale ma non ha simboli inutili.
+			- L’ordine di eliminazione è importante perché nel caso invertissi potrei non eliminare tutti i _simboli inutili_
+		- ### ES:
+			- ![[Pasted image 20241106125238.png]]
+			- Elimino i _non generatori_:
+				- $S\to a$
+				- $B\to b$
+			- elimino i _non raggiungibili_:
+				- $S\to a$ 
+			- se avessi invertito l’ordine delle operazioni la grammatica risultante sarebbe stata:
+				- $S\to a$
+				- $B\to b$ 
+				- _La quale non è priva di simboli inutili_ 
+	- ## Eliminare la ricorsione sinistra:
+		- ### Eliminare quella immediata:
+			- $A\to A \alpha_{1}|...|A \alpha_{n}|\beta_{1}|...|\beta_{m}$
+			- Queste produzioni possono essere __sostituite__ con:
+				- $A\to \beta_{1}A'|...|\beta_{m}A'$
+				- $A'\to \alpha_{1}A'|...|\alpha_{n}A'|\epsilon$ 
+			- #### ES:
+				- $A\to Aa|b$
+					- diventa:
+						- $A\to bA'$
+						- $A'\to aA'|\epsilon$ 
+				- $A\to Ab|Ac|d$
+					- diventa:
+						- $A\to dA'$
+						- $A'\to bA'|cA'|\epsilon$
+			- #### OSS:
+				- Se $G= A\to Aa$ non si può applicare l’algoritmo, perché mancano le produzioni di base da cui partire.
+				- infatti $L(G)=\emptyset$ e la grammatica corrispondente non ha produzioni.
+		- ### Eliminare quella non immediata:
+			- Considero:
+				- ![[Pasted image 20241106130619.png]]
+			- c’è sia quella immediata $(B\to Bc)$ che quella non ($S \implies Ba \implies Sca$) 
+			- #### Algoritmo:
+				- ![[Pasted image 20241106194102.png||600]]
+				- alla fine del secondo `for` saranno presenti solo ricorsioni sx di tipo immediato.
+				- quando `i=1` viene fatta solo l’istruzione 2 
+				- alla i-esima iterazione del `for` esterno tutti gli NT $A_{m}$ con $m<i$ saranno con la proprietà desiderata. In quello interno l’indice del NT in prima posizione viene aumentato fino al termine del ciclo, dove ogni produzione $A_{i}\to A_{k} \alpha$ è tale che $i\le k$.
+				  Siccome ogni produzione è $A_{i}\to A_{k} \alpha: i\le k$ verrà rimossa ogni _ricorsione sx di tipo immediato_ 
+			- #### ES:
+				- $S\to Ba | b$
+				- $B\to Bc| Sc|d$
+					- $NT=\{ S, B\}$
+				- ad `i=1` (per $S$) non è presente ricorsione sx immediata quindi non viene eseguito nulla.
+				- ad `i=2` ($A_{i}=B$), il ciclo interno viene eseguito solo per $A_{j}=A_{1}=S$ 
+				- quindi $B\to Sc$ viene rimpiazzato con:
+					- $$B\to Bac| bc$$ 
+				- E in totale le produzioni per $B$ sono:
+					- $$B\to Bc|Bac|bc|d$$
+				- e ora tocca rimuovere la ricorsione immediata:
+					- $$\begin{cases}B\to bcB'|dB' \\ B'\to cB'|acB'|\epsilon\end{cases}$$
+				- Quindi la grammatica finale risultante 
+					- $$\begin{cases}S\to Ba | b  \\B\to bcB'|dB' \\ B'\to cB'|acB'|\epsilon\end{cases}$$
+- # Fattorizzazione a sinistra:
+	- $$A\to aBbC|aBd$$
+	-  se sulla pila leggo $A$ non so quale produzione scegliere per l’input $a$ (nondeterminismo) 
+	- scelgo quindi la parte comune ($aB$) e “raccolgo” introducendo un nuovo $NT$ per definire il resto. 
+		- $A\to aB A'$
+		- $A'\to bC|d$
+	- ## ES:
+		- ![[Pasted image 20241106200736.png]]
+		- ![[Pasted image 20241106200751.png]]
+- # Link Utili:
+	- 

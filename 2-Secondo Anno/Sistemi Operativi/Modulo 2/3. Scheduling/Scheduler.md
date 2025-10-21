@@ -1,0 +1,123 @@
+---
+tags: 
+aliases:
+  - tabella dei processi
+  - scheduler
+  - mode switching
+  - mode switch
+  - context switch
+  - context switching
+  - diagramma di gantt
+  - preemptive
+  - cooperativo
+  - non-preemptive
+  - throughput
+  - turnaround
+  - tempo di risposta
+  - tempo di attesa
+  - CPU burst
+  - CPU bound
+  - I/O bound
+  - PCB
+data: "`2025-03-06 15:20`"
+---
+- # Intro:
+	- Manifestazione fisica di un [[Concorrenza#^68dcd8|processo]]:
+		- Il codice da eseguire,
+		- I dati su cui operare, 
+		- Lo stack di lavoro per la gestione delle chiamate di funzione, passaggio di parametri e variabili locali.
+	- Infatti in memoria si carica il codice eseguibile, la parte _Data_   
+	- Quindi serve un [[Process Control Block]] per avere delle info in più sul processo 
+	- ## PCB (process control block): ^464f21
+		- Questi PCB sono anche detti descrittori dei processi, contenenti:
+			- _il codice da eseguire_
+			- _i dati su cui operare_
+			- _Uno stack di lavoro che gestisce le chiamate di funzione, passaggio parametri e variabili locali_
+			- _informazione necessarie per la gestione del processo_
+- # Tabella dei processi:
+	- Contiene i PCB ed ogni processo ha un PCB associato, le cui info contenute all'interno possono essere divise in 3 aree: 
+		- ## Identificazione:
+			- Ogni processo ha un nome per potersi riferire a lui come 
+				- `PID` (process Identifier) o `process_id` 
+				- Può essere un _indice della tabella_ ma ciò sarebbe un problema nel caso si debba mandare un messaggio al processo $3$ che però era stato terminato e poi un altro processo aveva ricevuto quell’id, recapitando il [[Message passing#^d2687a|messaggio]] al processo sbagliato.
+				- Può essere un _numero progressivo_ che però necessita di una mappa per sapere a quale processo corrisponde.
+			- L’identificatore serve anche per riferirsi anche a tutti i processi collegati ad uno in particolare. 
+				- Come il padre o i figli.
+			- Inoltre è utile anche l’id dell’utente che ha richiesto l’esecuzione del processo.
+		- ## Stato:
+			- Vengono copiati valori dei [[Registri]] i del processore, come il _PC_, lo stack pointer, lo stato dei flag, ecc.
+		- ## Controllo:
+			- Informazioni per la gestione del processo.
+				- Come lo stato di esecuzione: _pronto, in esecuzione, terminato_
+			- Un identificatore dell'evento per cui il processo è in attesa
+			- Info per gli algoritmi di _scheduling_ usati:
+				- Come la priorità del processo, i puntatori per le code
+			- Inoltre deve essere presente anche il motivo per cui un processo è in attesa.
+			- _accounting_
+				- Il tempo in cui il processo è stato in esecuzione
+				- Tempo trascorso dalla sua ultima esecuzione.
+				- Utili per verificare l’efficienza di un processo.
+- # Scheduler: ^de7898
+	- Assegna la CPU di volta in volta ad un processo, decide quindi quale processo mandare in esecuzione, 
+		- Quando viene richiesta una operazione di I/O, il processo quindi viene sospeso.
+		- Successivamente viene scelto un altro processo nello stato _ready_
+		- _interval timer si comporta come dispositivo I/O_
+	- ## Vita di un processo nello scheduler:
+		- ![[Pasted image 20250605122738.png|600]]
+	- ## Schedule:
+		- è la sequenza temporale di assegnazioni delle risorse da gestire ai Richiedenti
+	- ## Scheduling:
+		- è l'azione di calcolare uno schedule
+	- ## Mode switching:
+		- Cambio tra modalità utente e kernel causato da un interrupt o da una syscall 
+	- ## Context switching: ^ff7644 ^635de2
+		- Quando avviene un [[Richiami Di Architettura#^63291e|interrupt]], viene gestito e poi viene chiamato lo scheduler che può decidere di eseguire un altro processo, e in quel caso sottopone il sistema ad un _context switch_.
+		- Lo stato del processo attuale viene salvato nel PCB e viene caricato il PCB di un altro processo che si vuole eseguire 
+			- ![[Pasted image 20250308155740.png||600]]
+		- ### Eventi scatenanti:
+			- #### 1 )
+				- un processo passa da stato running a stato waiting (system call bloccante, operazione di I/O)
+			- #### 2 )
+				- Un processo passa dallo stato running allo stato ready (a causa di un interrupt)
+			- #### 3 ) 
+				- Un processo passa dallo stato waiting allo stato ready
+			- #### 4 ) 
+				- un processo termina
+			- #### N.B:
+				- Negli eventi 1 e 4 si deve per forza selezionare un altro processo da eseguire.
+				- Negli eventi 2 e 3 si può decidere di continuare ad eseguire il processo corrente.
+	- ## Tipi di Scheduler:
+		- ### Non-preemptive o cooperativo:
+			- Quando i [[#^635de2||context switch]] possono avvenire solo con eventi 1 e 4.
+			- Quindi il controllo della risorsa è passato solo per la volontà del processo che la detiene.
+			- Questo scheduler non richiede meccanismi hardware come dei timer programmabili. 
+		- ### Preemptive: ^cc7eb1
+			- Quando i _context switch_ possono avvenire con qualsiasi evento (da 1 a 4).
+			- Quindi il controllo della risorsa può essere tolto dal detentore attuale a causa di un evento.
+			- Permette un migliore utilizzo delle risorse.
+	- ## Criteri di scelta di uno scheduler:
+		- ### Utilizzo della risorsa:
+			- Percentuale di tempo in cui la CPU è occupata ad eseguire [[Concorrenza#^68dcd8|processi]]
+			- Deve essere massimizzato
+		- ### Throughput:
+			- Numero di processi completati in un certo intervallo di tempo
+			- Deve essere massimizzato
+			- Dipende dalla lunghezza dei [[Concorrenza#^68dcd8|processi]]
+		- ### Tempo di turnaround: ^88bd62
+			- Tempo che intercorre tra la creazione di un processo e il suo completamento
+			- Deve essere minimizzato
+		- ### Tempo di attesa: ^914e04
+			- Tempo che un [[Concorrenza#^68dcd8|processo]] trascorre nello stato ready
+			- Deve essere minimizzato
+		- ### Tempo di risposta: ^b38b86
+			- Tempo che intercorre tra la richiesta di un servizio e la sua effettiva esecuzione
+			- Deve essere minimizzato
+	- ## caratteristiche di processi:
+		- ### CPU burst: ^c336d7
+			- Periodi di attività svolte dalla CPU
+		- ### CPU bound: ^a14d11
+			- Processi che richiedono molto tempo di CPU
+		- ### I/O bound: ^70c0ca
+			- Processi che richiedono poco tempo di CPU   
+- # Link Utili:
+	- 

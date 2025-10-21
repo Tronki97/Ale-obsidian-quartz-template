@@ -1,0 +1,79 @@
+---
+tags: []
+aliases:
+  - handshake
+  - key derivation
+  - data records
+  - VPN
+  - IPsec
+  - SSL
+  - nonce
+data: "`2025-02-25 17:00`"
+---
+- # Intro:
+	- si posizione tra il livello applicazione e [[Livello trasporto#^157bc5|TCP]] e quindi fornisce delle [[API REST|API]] alle applicazioni  
+	- durante il [[Livello trasporto#^75a5d7|three way handshake]] viene scambiata la chiave simmetrica che verrà usata per la comunicazione.
+- # Simple secure channel:
+	- ## Handshake:
+		- Alice e Bob usano i loro certificati per scambiare la chiave simmetrica e quindi autenticarsi tra di loro e scambiarsi i segreti
+		- ![[Pasted image 20250225172031.png]]
+		- _MS_: Master Secret
+		- _EMS_: Encrypted Master Secret
+	- ## Key derivation:
+		- viene generata una chiave simmetrica a partire dal _MS_ e da altre informazioni
+		- ### Quattro chiavi:
+			- $K_{C}=$ chiave di criptazione per i dati mandati dal client al server.
+			- $M_{C}$ = chiave MAC per i dati mandati dal client al server.
+			- $K_{S}=$ chiave di criptazione per i dati mandati dal server al client.
+			- $M_{S}$ = chiave MAC per i dati mandati dal server al client.
+		- $KDF$: chiavi derivate da _MS_ e da altre informazioni usando delle funzioni.
+	- ## Data records:
+		- i dati vengono mandati in pacchetti chiamati _record_ che contengono:
+			- _MAC_: messaggio di autenticazione
+			- _Data_: i dati veri e propri
+		- ![[Pasted image 20250225172452.png]]
+	- ## Sequence number:
+		- per evitare che l’attaccante registri i record di dati e li invii in un secondo momento, si aggiunge un numero di sequenza dentro al MAC :
+			- $$MAC=MAC(M_{X}, sequence||data)$$
+		- per evitare che l’attaccante registri tutti quanti i record si usa una _nonce_.
+			- _Ovvero un numero usato una volta sola generato a caso_ 
+	- ## Control information:
+		- a volte l’attaccante effettua un attacco di troncamento, fingendo un segmento di chiusura TCP e quindi gli utenti pensano ci siano meno dati di quelli effettivi. 
+		- per evitare ciò si aggiunge un campo di _type.
+			- ![[Pasted image 20250225172924.png]]
+			- $$MAC=MAC(M_{X}, \text{sequence||type||data})$$
+	-  ![[Pasted image 20250225173051.png||400]]
+- # Real SSL:
+	- ## Handshaking:
+		- 1. Il client manda una lista di algoritmi che supporta insieme al _nonce_.
+		- 2. Il server sceglie uno di quegli algoritmi e manda indietro:
+			- La scelta + il certificato + il _nonce_ del server.
+		- 3. Il client verifica il certificato del server, estrae la chiave pubblica, genera il _pre master secret_, cripta con la chiave pubblica del server e lo manda al server.
+		- 4. Il client e il server computano indipendentemente la criptazione e la chiave MAC dal _pre master secret_ e dai _nonce_.
+		- 5. Il client manda un MAC di tutti i messaggi handshake
+		- 6. Il server manda un MAC di tutti i messaggi handshake
+		- Generare i due _nonce_ permette di evitare che l’attaccante possa registrare i messaggi e poi mandarli in un secondo momento.
+	- ## Record:
+		- ![[Pasted image 20250626134628.png|500]]
+			- Nell'header c'è il _tipo_ del contenuto, la _versione_ e la _lunghezza_.
+			- MAC contiene i numeri di sequenza e la MAC key $M_{X}$
+			- _Fragment_ è composto da $2^{14}$ bytes ovvero $16KB$
+- # VPN:
+	- nonostante tutto questo l’attaccante può comunque fare spoofing dell’[[Indirizzamento IPv4#^afb979||indirizzo IP]] 
+	- per evitare ciò si usa una VPN che cifra tutto il traffico e quindi l’attaccante non può fare spoofing.
+	- le stesse VPN usano IPsec 
+	- Gli IP rimangono visibili esternamente per garantire il traffico di dati attraverso i router ma esiste comunque una parte cifrata con i veri indirizzi IP. 
+	- ![[Pasted image 20250627115039.png|500]]
+- # Ipsec
+	- Ha due modalità di funzionamento:
+		- Trasporto dove il datagramma è emesso e ricevuto da un sistema finale e protegge i protocolli di livello superiore.
+			- ![[Pasted image 20250627120824.png|500]]
+		- Tunneling:
+			- ![[Pasted image 20250627120853.png|500]]
+	- utilizza due protocolli:
+		- ## AH (authentication header):
+			- autentica i pacchetti IP e quindi verifica che non siano stati modificati. 
+			- ma non garantisce la [[Sicurezza Di Rete#^92bd4c|confidenzialità]]
+		- ## ESP (encapsulation security protocol):
+			- cifra i pacchetti IP e quindi garantisce la privacy, [[Sicurezza Di Rete#^cb41ce|integrità]] e [[autenticazione]].
+			- Più usato rispetto ad _AH_

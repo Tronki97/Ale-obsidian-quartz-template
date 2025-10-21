@@ -1,0 +1,40 @@
+---
+tags: []
+aliases:
+  - top-down parsing
+  - classe grammatica
+data: "`2024-10-30 18:31`"
+---
+- # Def:
+	- data $G=(NT, T, S, R)$ _libera_, costruisco il [[Automi a Pila (PDA)|PDA]] 
+		- $$M=(T, \{q\}, T\cup NT, \delta,q, S, \emptyset)$$
+	- che riconosce per [[Automi a Pila (PDA)#^a594b1|pila vuota]] dove $\delta$ è definita come:
+		- $$A\to B\in R \implies (q, \beta)\in \delta(q,\epsilon,A)$$
+			- (_espandi_)
+		- $$\forall a\in T, \ \ \ (q,\epsilon)\in \delta(q,a,a)$$
+			- (_consuma_)
+		- tale che $L(G)=P[M]$ riconoscimento per pila vuota
+- # ES:
+	- $S\to aSb\ | \ \epsilon$    $S \implies aSb \implies aaSbb \implies aabb$
+		- ![[Pasted image 20241030183837.png]]
+	- ## Nondeterminismo:
+		- si risolve scegliendo la produzione in base al simbolo in lettura (_look-ahead_)
+			- se leggo $a \implies$ _espando_ $S\to aSb$
+			- se leggo $b \implies$ _espando_ $S\to \epsilon$ 
+			-  ![[Pasted image 20241030184147.png]]
+- # Attenzione:
+	- non tutte le grammatiche sono adatte al _top-down parsing_ 
+	- ## ES:
+		- $G=S\to Sb\ |\ a$     $L(G)=ab^{*}$ 
+		- ![[Pasted image 20241030185355.png]]
+		- non consumo mai l’input 
+		- continuo ad espandere $S$ e a scrivere sulla pila
+		- Quindi bisogna _manipolare $G$ per ottenere una $G'$ equivalente senza questo problema_
+		- $$G'=\begin{cases}S\to aA\\ A\to bA|\epsilon\end{cases} \ \ \ \ \ \ \ L(G)=L(G')$$
+		- $G'$ è adatta al top-down parsing 
+			- leggo $a$ e sulla pila c’è $S \implies$ _espando_ $S\to aA$
+			- leggo $b$ e sulla pila c’è $A \implies$ _espando_ $A\to bA$
+			- leggo $\$$ e sulla pila c’è $A \implies$ _espando_ $A\to \epsilon$
+		- $G'$ è LL(1)
+- # Link Utili:
+	- 

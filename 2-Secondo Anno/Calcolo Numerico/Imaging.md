@@ -1,0 +1,118 @@
+---
+tags: []
+aliases:
+  - matrice estesa
+  - centro di una matrice
+  - convoluzione
+  - Point spread function
+  - point spread function
+  - PSF
+  - metriche di valutazione
+  - PSNR
+  - SSIM
+data: "`2024-11-11 13:40`"
+---
+- # Intro:
+	- un’immagine di $M \times N$ pixel non è altro che una  [[Matrici|matrice]]  $M \times N$ con un coefficiente applicato che sta a rappresentare il colore. 
+	- Per quanto riguarda il bianco e nero si ha la scala di grigi: 
+		- $0=$ nero; $255=$ bianco
+	- invece per i colori ogni pixel è un vettore di 3 valori (rosso, verde, blue) che combinati formano il colore
+- # Matrice estesa:
+	- sia $A$ una matrice $M \times N$ e $k \in \mathbb{N}$ allora $B$ è una matrice $(M+2k)\times(N+2k)$ che _estende_ $A$ $\iff$ :
+		- $$\forall i, j \in \{1,...,M\}\times\{1,...,N\}\$ A_{(i,j)} = B_{(i+k, j+k)}$$ 
+	- ## ES:
+		- $$A=\begin{pmatrix}7& 8 & 9 \\ 12& 13& 14 \\ 17&18 & 19\end{pmatrix}$$
+		- viene estesa da B:
+			- $$B=\begin{pmatrix}1&2&3&4&5\\6&7& 8 & 9 & 10\\ 11&12& 13& 14 &15\\ 16&17&18 & 19& 20\end{pmatrix}$$
+			- in questo caso $k=1$ 
+- # Centro di una matrice:
+	- elemento di coordinate $(\frac{{D+1}}{2},\frac{{D+1}}{2})$ dove $D$ è il numero di colonne e righe della matrice. ($D$ è dispari)
+		- $$M=\begin{pmatrix}1&2&3&4&5\\6&7& 8 & 9 & 10\\ 11&12& 13& 14 &15\\ 16&17&18 & 19& 20\\ 21&22&23&24&25\end{pmatrix}$$
+		- in questo caso è 13.
+- # Sotto-matrice:
+	- è una matrice $D \times D$ che ha come centro $B_{(i+\frac{D-1}{2}, j+\frac{D-1}{2})}$.
+    - $$B=\begin{pmatrix}1&2&3&4&5\\6&7& 8 & 9 & 10\\ 11&12& 13& 14 &15\\ 16&17&18 & 19& 20\\ 21&22&23&24&25\end{pmatrix}$$
+    - ne segue che la sotto matrice $W_{(1,3)}$ è:
+        - $$W=\begin{pmatrix}3&4&5\\8&9&10\\13&14&15\end{pmatrix}$$
+        - il cui centro è $B_{(2,4)}$ 
+- # Convoluzione:
+	- operazione fra una matrice $A:M \times N$ (_l’immagine_) e una di [[Dimensione]] $D \times D$ con $D$ dispari (_kernel_).
+	- il risultato ha le stesse dimensioni di $A$ si chiama $C$ 
+		- $$C=[K*A|B]$$
+		- $$C_{(i,j)}=\sum\limits_{m=1}^{(D-1)/2}\sum\limits_{n=1}^\frac{(D-1)}{2}K(m,n)W_{(i,j)}(m,n)$$
+		- 
+- # Come estendere una matrice:
+	- estendere un immagine aggiungendo un bordo nero:
+		- ![[Pasted image 20241111141145.png]] 
+	- estendere in modo periodico:
+		- ![[Pasted image 20241111141223.png]]
+	- condizioni riflessive:
+		- ![[Pasted image 20241111141244.png]]
+- # Applicare un filtro:
+	- applicare un filtro ad un immagine è semplicemente fare la media dei valori ai punti cardinali di quell’indice:
+		- ![[Pasted image 20241111142554.png]]
+	- Se ora considero il filtro:
+		- $$\begin{pmatrix}0&1&0 \\ 1&-4&1 \\ 0&1&0\end{pmatrix}$$
+		- visto che la somma dei coefficienti fa $0$  e sapendo che un pixel ha approssimativamente lo stesso colore dei 4 che lo circondano allora con questo filtro applicato quel pixel verrà rimpiazzato da uno 0. 
+		- Quindi gli unici pixel che avranno valore non nullo saranno quelli in mezzo a due regioni con colori contrastanti ovvero i _bordi dell’immagine_:
+			- ![[Pasted image 20250106181345.png]]
+		- 
+- # Allargamento e Point spread function 
+	- per allargare un oggetto posso approssimarlo ad una funzione $A$ che però non funziona quasi mai perfettamente ma genera una _distorsione_.
+		- ![[Pasted image 20241111144932.png]]
+	- questa funzione $A$ si chiama _point-spread function_ (_PSF_)
+	- $$A(x)=[K*x |\ P]$$
+		- $x$ l’oggetto.
+		- $K$ è un qualche kernel di convoluzione 
+		- $P$ è un pattern di estensione 
+	- Gli errori nell’immagine possono essere sia deterministici ovvero “prevedibili” e non ovvero dati da fenomeni casuali.
+	- Si può definire un’immagine $w$ i cui valori dei pixel vengono generati da del _rumore gaussiano_
+	- e quindi si può definire un modello che descrive come si sia formata un’immagine $g$ a partire dall’oggetto $x$:
+		- $$y^{\delta}=A(x)+w=[K*x|P]+w$$
+		- $K$ è un qualche kernel di convoluzione 
+		- $P$ è un pattern di estensione 
+		- $A$ è la PSF.
+		- ![[Pasted image 20241111145632.png]]
+- # Riottenere l’immagine originale da quella col rumore.
+	- so che l’immagine corrotta è:
+		- $$y^{\delta}=Ax+w$$
+			- $A$ è una matrice $M \times N$ che contiene le info sul nucleo di convoluzione ed è tale che:
+				- $$Ax=K*x$$
+	- _ER_: errore relativo.
+	- _SSIM_: mi da un indicazione sulla qualità visiva dell’immagine
+	- _PSNR_: Il rapporto segnale-rumore (Peak to Signal Noise Ratio)
+	- ## Soluzione Naive:
+		- risolvo usando il [[Problema dei minimi quadrati]]:
+			- $$min_{x}||Ax-y^{\delta}||^{2}_{2}$$
+			- ![[Pasted image 20241111152022.png]]
+		- ma questa soluzione non è ottimale in quanto è _costosa computazionalmente_ e quindi impiega molto tempo per risolversi e inoltre _non restituisce un risultato ottimale_.
+		- SSIM e PSNR sono molto bassi in questa soluzione 
+		- ER invece è abbastanza alto.
+	- ## Regolarizzazione di [[Problemi inversi]]:
+		- $$min_{x}f(x) = min_{x}||Ax − y^{δ}||^{2}_{2} + λ||x||^ 2$$
+			- $\lambda$ è il parametro di regolarizzazione.
+		- se applico la condizione del primo ordine $\nabla (f)=0$ ottengo:
+			- $$A^{T}A+\lambda I=A^{T}y^{\delta}$$
+			- questo sistema si può risolvere applicando CGLS
+	- ## Variazione totale:
+		- $$T V (x) = ||∇(x)||_{1} =$$
+		- $$=\sum\limits_{i=1}^{M}\sum\limits_{j=1}^{n}\sqrt{(x_{i+1,j}− x_{i,j})^ 2 + (x_{i,j+1} − x_{i,j})^ 2}$$
+		- non essendo differenziabile nel punto $(0,0)$ si aggiunge un parametro $\beta>0$  (di solito nell’ordine di $10^{-3}$) diventando quindi: $TV^{\beta}(x)$
+			- $$=\sum\limits_{i=1}^{M}\sum\limits_{j=1}^{n}\sqrt{(x_{i+1,j} − x_{i,j})^ 2 + (x_{i,j+1} − x_{i,j})^ 2+\beta^{2}}$$
+		- Quindi il problema di regolarizzazione diventa:
+			- $$min_{x}||Ax-y^{\delta}||^{2}_{2}+\lambda TV^{\beta}(x)$$
+		- come pregio ha che preserva i contorni???????
+- # Metriche di valutazione:
+	- per valutare la ricostruzione dell’immagine si usano:
+	    - _ER_: errore relativo definito come:
+	        - $$ER= \frac{{||x-x_{GT}||_{2}^{2}}}{||{x_{GT}}||^{2}_{2}}$$
+	    - _SSIM_ (structural similarity index): mi da un indicazione sulla qualità visiva dell’immagine:
+	        - ha valori compresi in $[0,1]$ e più è vicino ad 1 più l’immagine è simile all’originale 
+	    - _PSNR_: Il rapporto segnale-rumore (Peak to Signal Noise Ratio) definito come:
+	        - $$PSNR = 10 log_{10} \frac{(max_{i,j}|x_{ij})^{2}}{MSE}$$
+	        - dove MSE è _l’errore quadratico medio_ definito come:
+	            - $$MSE = \frac{||x-x_{GT}||^{2}_{2}}{MN}$$
+	            - _M,N_ sono le dimensioni dell’ immagine.
+- # Link Utili:
+	- 
+	- 

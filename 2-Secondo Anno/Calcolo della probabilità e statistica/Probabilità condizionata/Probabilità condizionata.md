@@ -1,0 +1,95 @@
+---
+tags: 
+aliases:
+  - regola della catena
+  - diagramma ad albero
+data: "`2025-02-25 13:11`"
+---
+- # Intro:
+	- Conosco $\mathbb{P}(A)$ si verifica $B$ e mi chiedo come condizioni $A$ 
+- # Notazione:
+	- $P(A|B)$ ($P(.|B), B\subseteq \Omega$) probabilità di $A$ condizionato a $B$ 
+- # ES:
+	- Lancio del dado $\Omega=\{1,2,3,4,5,6\}$
+	- $\mathbb{P}(\{w\})=\frac{1}{|\Omega|} \ \forall w \in \Omega$ ovvero:
+		- $$\mathbb{P}(A)= \frac{\text{\# casi favorevoli}}{\text{\# casi possibili}}$$
+	- $A=$ numero $\ge 3= \{3,4,5,6\}\to \mathbb{P}(A)=\frac{4}{6}=\frac{2}{3}$
+	- $B$ = numero pari = $\{2,4,6\}$
+	- $\mathbb{P}(A|B)$
+		- $$\mathbb{P}(A|B)=\frac{\text{\# veri casi favorevoli per A}}{\text{\# veri casi possibili}}$$
+- # ES:
+	- D4 truccato
+	- $$\mathbb{P}(\{4\})=\frac{1}{15}, \mathbb{P}(\{3\})=\frac{2}{15} ,  \mathbb{P}(\{2\})=\frac{4}{15}, \mathbb{P}(\{1\})=\frac{8}{15} $$
+	- $\Omega = \{ 1,2,3,4\}$ , $A=\{3,4\}=n^{°}\ge 3$,  $B=\{2,4\}$ = numero pari
+	- $$P(A|B)=\frac{\text{P(casi favorevoli di A)}}{\text{P(veri casi possibili)}}=\frac{\mathbb{P}(\{4\})}{\mathbb{P}(\{2\})+\mathbb{P}(\{4\})}=\frac{1}{5}$$
+- # Def:
+	- $A,B$ sono eventi sullo spazio $(\Omega, \mathbb{P})$ con:
+		- $\mathbb{P}(B)>0$ viene definita quindi condizionata a $B$ la funzione:
+			- $$\mathbb{P}(A|B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$$
+	- ## OSS:
+		- Se $\mathbb{P}(.)$ è la probabilità uniforme:
+			- $$\mathbb{P}(A)=\frac{|A|}{|\Omega|}; \ \ \mathbb{P}(A|B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}=\frac{|A\cap B|}{|\Omega|}* \frac{|\Omega|}{|B|}=\frac{|A \cap B|}{|B|}$$
+	- ## OSS:
+		- $$\mathbb{P}(A|B)\ne \mathbb{P}(B|A)$$
+		- $$B=\Omega \implies \mathbb{P}(A|B)=\frac{\mathbb{P}(A\cap B)}{1} = \mathbb{P}(A|\Omega)=\mathbb{P}(A)$$
+		- $$A=\Omega \implies \mathbb{P}(A|B)=\frac{\mathbb{P}(\Omega\cap B)}{\mathbb{P}(B)}=\frac{\mathbb{P}(B)}{\mathbb{P}(B)}=1$$
+		- $\forall B \subseteq \Omega$, $\mathbb{P}(.|B): \mathbb{P}(\Omega)\to [0,1]$    : $A \to \mathbb{P}(A|B)$   
+	- Ciò verifica tutte le [[Proprietà delle probabilità]] 
+	- ### 1:
+		- $$\forall B \subseteq \Omega,\ \ \  [0,1]\ni \mathbb{P}(A|B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}\ \ \ \forall A\subseteq \Omega$$
+	- ### 2:
+		- $$\mathbb{P}(\Omega|B)=1 \implies \frac{\mathbb{P}(\Omega\cap B)}{\mathbb{P}(B)}= \frac{\mathbb{P}(B)}{\mathbb{P}(B)}=1$$
+	- ### 3:
+		- riprendendo l’ [[Proprietà delle probabilità#^b7a07a||assioma 3]] $(a_{n})_{n\in \mathbb{N}}  \ \ A_{i}\cap A_{j}=\emptyset  \ \ \ \forall i\ne j$
+		- $$\mathbb{P}\left( \bigcup_{i=1}^{\infty} A_{i}|B \right)=\sum\limits_{i=1}^{\infty} \mathbb{P}(A_{i}|B) \implies \frac{\mathbb{P}\left( \left( \bigcup_{i=1}^{\infty} A_{i} \right)\cap B \right)}{\mathbb{P}(B)}=\sum\limits_{i=1}^{\infty} \frac{\mathbb{P}(A_{i}\cap B)}{\mathbb{P}(B)}$$
+- # N.B (Regola della catena): ^2857d0
+	- La _probabilità condizionata_ spesso è nota e si usa per trovare la _probabilità dell’intersezione_:
+		- $$\mathbb{P}(A|B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)} \implies \mathbb{P}(A\cap B)= \mathbb{P}(A|B)*\mathbb{P}(B)$$
+		- Questo è noto come _Regola della catena_
+- # Proposizione:
+	- $$(A_{i})_{i=1,...,n},\ \ \ \ \mathbb{P}(A_{1}\cap A_{2}\cap ... \cap A_n)>0$$
+	- Qui vale la regola della catena, 
+		- $$\mathbb{P}(A_{1}\cap A_{2}\cap ... \cap A_n)=\mathbb{P}(A_{1})*\mathbb{P}(A_{1}|A_{2})*\mathbb{P}(A_{1}|A_{2}\cap A_{1})*...* \mathbb{P}(A_{n}|A_{n-1}\cap A_{n-2}\cap...\cap A_{1})$$
+- # ES:
+	- Ho 3B, 2N e 1R,
+	- $\mathbb{P}(A)=$ probabilità di pescare 1B poi 1R poi 1N.
+	- Si hanno quindi 3 famiglie di eventi:
+		- $$(B_{i})_{i=1,...,k}\ \ \ , (R_{i})_{i=1,...,k}\ \ \ , (N_{i})_{i=1,...,k}$$
+	- $$\mathbb{P}(A)=\mathbb{P}(B_{1}\cap R_{2}\cap N_{3})=$$
+		- Usando la _regola della catena_:
+	- $$= \mathbb{P}(B_{1})*\mathbb{P}(R_{2}|B_{1}) * \mathbb{P}(N_{3}|B_{1}\cap R_{2})$$
+	- Infine grazie anche alla probabilità uniforme: 
+		- $$\mathbb{P}(A)=\frac{1}{2}* \frac{1}{5} * \frac{1}{2} =\frac{1}{20}$$
+- # Diagramma ad albero:
+	- Nodo: un evento (il primo è $\Omega$)
+	- Ramo: probabilità di quel evento (la prima prob non è condizionata tutte le altre si)
+	- I rami formano una partizione di $\Omega$:
+		- $$(B_{i})_{i=1,...,n}: B_{i}\cap B_{j}=\emptyset \ \ \ \forall i\ne j$$
+		- ![[Pasted image 20250228135945.png]]
+		- Questo è l’albero relativo all’esempio precedente.
+		- Ogni livello rappresenta un’altra estrazione (_sotto-esperimento_).
+		- La _regola della catena_ si può leggere sul diagramma ad albero
+			- $\Omega\to B_{1}\to R_{2}\to N_{3}$ 
+	- ## ES:
+		- 2 urne 
+			- La prima ha 2 rosse e 1 bianca 
+			- La seconda 3 rosse e 2 bianche 
+		- si lancia una moneta se esce $T$ si estrae dalla prima urna altrimenti dalla seconda 
+		- calcolare $\mathbb{P}(A)=$ probabilità che esca testa e la pallina estratta sia bianca 
+		- ### Sotto-esperimenti:
+			- _Lancio della moneta_ 
+			- _Estrazione della pallina_.
+		- $B$: estraggo una pallina bianca; 
+		- $B^{C}$ : estraggo una pallina rossa.
+		- ### Diagramma ad albero:
+			- ![[Pasted image 20250302182310.png| 400]]
+			- $A=T\cap B$
+			- $$\mathbb{P}(A)=\mathbb{P}(T\cap B)=\mathbb{P}(B|T)*\mathbb{P}(T)=\frac{1}{3}* \frac{1}{2}=\frac{1}{6}$$
+- # ES:
+	- $$\Omega=\{ (n_{1},n_{2},n_{3},n_{4},n_{5}): n_{i}\in \{1,...,90\}\}$$
+		- $n_{i}$ sono distinti $i=1,...,5$
+	- $E_{ij}=$ “estraggo il numero j alla i-esima estrazione” $i=1,...5$   $j=1,...,90$
+	- $$\mathbb{P}(E_{1, n_{1}} \cap E_{2, n_{2}} \cap E_{3, n_{3}}\cap E_{4, n_{4}}\cap E_{5, n_{5}})=$$
+	- $$=\mathbb{P}(E_{1},n_{1})*\mathbb{P}(E_{2},n_{2}|E_{1},n_{1})*\mathbb{P}(E_{3},n_{3}|E_{1},n_{1}\cap E_{2},n_{2})*...*\mathbb{P}(E_{5},n_{5}|E_{1},n_{1}\cap E_{2},n_{2}\cap E_{3},n_{3}\cap E_{4},n_{4})$$
+	- $$=\frac{1}{90}* \frac{1}{89}* \frac{1}{88}* \frac{1}{87}* \frac{1}{86}=\frac{1}{|\Omega|}$$
+- # Link Utili:

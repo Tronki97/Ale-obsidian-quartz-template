@@ -1,0 +1,71 @@
+---
+tags: 
+aliases:
+  - DNS iterativo
+  - DNS riscorsivo
+  - record DNS
+data: "`2024-11-29 15:33`"
+---
+- # DNS:
+	- gli utenti invece di andare a scrivere l’indirizzo [[Indirizzamento IPv4|IP]] scrivono un nome perché più facilmente ricordabile.
+	- però le macchine necessitano di un indirizzo IP e per riuscire a ricavare questo indirizzo dal nome si interroga un _server DNS_.
+	- ha un protocollo chiamato _DNS_ che in base ad un nome restituisce un indirizzo IP.
+	- Nel DNS si possono anche definire degli alias per un certo nome.
+		- il nome principale si chiama _canonical_ e gli alias sono chiamati _CNAME_.
+- # Def:
+	- è una catena di _DNS server_ organizzati con una gerarchia.
+	- e ogni DNS server conosce almeno uno a livello superiore
+	- Gli host devono conoscere almeno un server DNS (l’IP) 
+	- i server radice conoscono tutti i _domain name_ e i loro IP associati.
+	- Permette inoltre di riferirsi a un solo identificatore per un _database_ su più macchine fisiche
+	- ## Server:
+		- ### Top level domain (TLD):
+			- sono i server che gestiscono i domini di primo livello come _com_, _org_, _net_, _it_ e così via.
+			- hanno un database con i nomi dei domini e gli indirizzi IP associati.
+		- ### autoritativi:
+			- sono i server che gestiscono i domini di secondo livello e i loro sottodomini.
+			- Forniscono la risposta definitiva a una query DNS: indirizzi IP, record ecc...
+	- ## Risoluzioni dei nomi:
+		- ### DNS iterativo:
+			- quando il client manda una richiesta che il DNS server non conosce lui manda la richiesta ad un altro server che si trova ad un livello superiore di quello che ha ricevuto la richiesta.
+			- N.B: è sempre il client a mandare la richiesta.
+			- ![[Untitled 1 1.webp|350]]
+		- ### DNS ricorsivo:
+			- il client manda la richiesta al server DNS e il server DNS si occupa di fare tutte le richieste necessarie per trovare l'indirizzo IP.
+			- in questo modo si alleggerisce il carico del client.
+			- ![[DNS Ricorsivo.webp||350]]
+	- ## Record DNS:
+		- Visto che il DNS è fondamentalmente un database distribuito con i nomi e gli indirizzi IP associati, ci sono diversi tipi di record DNS che sono chiamati RR(_record di risorse_).
+		- ### I più comuni sono:
+			- _A_ (address record): associa un nome a un [[Indirizzamento IPv4|IPv4]].
+				- Name: nome dell’host
+				- Value: indirizzo IP dell’host
+			- _CNAME_ (Canonical Name Record): si mappa il nome di un dominio ad un altro nome di dominio (ad esempio, [www.ibm.com](http://www.ibm.com/) è realmente servereast.backup2.ibm.com).
+				- Name: nome alias per un nome canonico (il nome reale)
+				- Value: nome canonico.
+			- _MX_ (Mail Exchange Record): specifica il server di posta elettronica per quel dominio.
+				- Name: nome del dominio
+				- Value: nome del server di posta associato al dominio 
+			- _NS_ (Name Server Record): specifica il server DNS autoritativo per quel dominio.
+				- Name: nome del dominio (es: `example.com`)
+				- Value: nome dell’host del server autoritativo del dominio.
+		- ### Esempio di inserimento:
+			- Il registrar DNS (organizzazione che gestisce la registrazione dei nomi di dominio) inserisce due RR nel server del _TLD.com_ per il _dominio networkuptopia.com_:
+				- 1. Un record _NS_ collega il dominio al nome del server DNS autoritativo `ns.networkuptopia.com`.
+					- RR: `networkuptopia.com`, `dns1.networkuptopia.com`.
+				- 2. Un record _A_ che collega il nome del server DNS autoritativo con l'indirizzo IP corrispondente 
+					- nel RR: `dns1.networkuptopia.com`, `212.212.212.1`
+			- Il registrar DNS configura poi i propri server DNS autoritativi, creando un record _A_ in uno di quei server che mappa [www.networkuptopia.com](http://www.networkuptopia.com/) a un indirizzo IP specifico
+			- Infine si crea anche un record _MX_ per [networkuptopia.com](http://www.networkuptopia.com/) che specifica il server di posta associato al dominio, sempre su quel server autoritativo.
+- # Attacchi al DNS:
+	- DNS poisoning: 
+		- _cache poisoning_: si riempie la cache del server con informazioni sbagliate.
+	- Man-in-the-middle:
+		- si fa credere al client che il server DNS sia quello giusto ma in realtà è un server fasullo.
+	- _DDoS_:
+		- Si bombarda un server DNS di richieste inutili e facili da spedire rendendo inaccessibile quel server per il traffico legittimo.
+- # ES:
+	- ![[Pasted image 20241129154611.png]]
+- # Importante:
+	- _non è necessario avere il DNS per poter navigare su internet_ ma è molto più comodo.
+	- DNS sfrutta principalmente [[Livello trasporto#^bd8258|UDP]] per le richieste quando invece un pacchetto di risposta è troppo grande oppure ci sono fallimenti nelle richieste viene impiegato il [[Livello trasporto#^157bc5|TCP]].

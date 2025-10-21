@@ -1,0 +1,79 @@
+---
+tags: 
+aliases:
+  - processo
+  - multiprogramming
+  - multiprocessing
+  - distributed processing
+  - race condition
+  - potere espressivo
+  - vita dei processi
+  - gerarchia dei processi
+data: "`2024-10-10 10:56`"
+---
+- # Processo: ^68dcd8
+	- attività statica controllata da un programma che si svolge in un processore.
+	- ## Assioma di finite progress
+		- ogni processo viene eseguito a velocità finita non nulla, ma sconosciuta.
+			- ovvero se un processo può avanzare prima o poi lo farà
+	- _ad ogni istante un processo può essere descritto da:_
+		- ### la sua immagine in memoria
+			- la memoria assegnata al processo
+			- le strutture dati del S.O associate al processo.
+		- ### la sua immagine nel processore:
+			- contenuto dei [[Registri]] generali e speciali
+		- ### Lo stato di avanzamento:
+			- descrive lo stato corrente: in esecuzione o attesa
+	- _Più processi possono eseguire lo stesso programma_:
+		- es: due istanze dello stesso programma (es: browser)
+	- _Ogni istanza viene considerata un processo separato_
+		- possono condividere lo stesso codice
+		- i dati, le immagini e lo stato di avanzamento sono separati
+	- ## Vita dei processi:
+		- _running_
+			- Il processo è in esecuzione entra in questo stato quando viene scelto dallo [[Scheduler#^de7898|scheduler]] preso dalla _ready queue_.
+		- _waiting_:
+			- Non può procedere fino a quando non si verifica un certo evento, ed inoltre non può essere caricato da nessuno finche non finisce.
+		- _ready_
+			- Il processo è pronto ad essere eseguito ma il processore è impegnato in un’altra attività
+			- La struttura dati usata per gestire i processi in questo stato è la _ready queue_
+	- ## Gerarichia dei processi:
+		- Il processo padre può creare altri processi figli.
+		- I processi figli possono creare altri processi figli a loro volta.
+		- Si crea così un albero dei processi.
+			- ![[Pasted image 20250308160054.png|500]]
+- # Concorrenza:
+	- nel [[Sistema operativo]] tante attività vengono eseguite più o meno contemporaneamente dal processore
+	- serve il _modello di riferimento_ che è basato sul concetto di _processo_ 
+	- ## gestire _processi multipli_:
+		- ### multiprogramming: ^ecbe27
+			- più processi su un solo processori
+			- parallelismo apparente
+		- ### Multiprocessing:
+			- più processi su una macchina con processi multipli 
+			- parallelismo reale
+		- ### Distributed processing:
+			- più processi su di un insieme di computer indipendenti
+			- parallelismo reale
+	- due programmi si dicono in esecuzione concorrente se _vengono eseguiti in parallelo_
+	- ## DEF:
+		- la concorrenza è l'insieme dell notazioni per descrivere l'esecuzione concorrente di vari programmi e di tenciche per gestire problemi legati all'esecuzione come: _comunicazione e sincronizzazione_
+- # ES:
+	- ![[Pasted image 20241010113346.png]]
+	- suppongo che esista un processo $P_{1}$ che esegue `modifica(10)` e $P_{2}$ che esegue `modifica(-10)`
+	- e suppongo che $P_{1}$ e $P_{2}$ siano in esecuzione concorrente.
+	- sia `totale=100` 
+	- esecuzione corretta:
+		- viene eseguito $P_{1}$ che fa si `totale=110`
+		- arriva un interrupt 
+		- salva i registri $P_{1}$
+		- ripristina i registri $P_{2}$
+		- poi viene eseguito $P_{2}$ che fa si `totale=100`
+		-  
+- # Race condition:
+	- il risultato non dipende dai processi ma dall'evoluzione temporale dei processi.
+- # Potere espressivo:
+	- si dice che il paradigma di programmazione A è espressivo almeno quanto il paradigma di programmazione B (e si scrive A ≥ B) quando è possibile esprimere ogni programma scritto con B mediante A.
+	- quando $A\ge B$ e $B\ge A$ allora A e B hanno lo stesso potere espressivo
+- # Link Utili:
+	- 

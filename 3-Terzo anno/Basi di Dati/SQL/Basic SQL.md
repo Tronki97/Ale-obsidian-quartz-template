@@ -1,0 +1,164 @@
+---
+tags:
+  - TODO
+aliases:
+  - create database
+  - create schema
+  - create table
+  - create domain
+  - NOT NULL
+  - UNIQUE
+  - CHECK
+  - CASCADE
+  - SET NULL
+  - SET DEFAULT
+  - NO ACTION
+  - ALTER DOMAIN
+  - ALTER TABLE
+  - DROP DOMAIN
+  - DROP TABLE
+data: "`2025-10-09 15:50`"
+---
+- # intro:
+	- Permette di definire la struttura dei dati implementando entrambi [[Linguaggi dei database#^0f194a|DDL]] [[Linguaggi dei database#^3a024b|DML]] 
+- # Data definition:
+	- ## CREATE DATABASE:
+		- Ogni database creato contiene tabelle, viste triggers e altre cose
+		- ### ES:
+			- `CREATE DATABASE db_name`
+	- ## CREATE SCHEMA:
+		- Uno schema di SQL è identificato da un nome e descrive gli elemeneti che gli appartengono. Lo schema apparterrà all'utente che ha scritto il comando.
+			- Se qualcun altro ci deve lavorare soprà bisogerà assegnare i diritti a chi di dovere
+		- ### ES:
+			- `CREATE SCHEMA schema_name`
+			- `AUTHOIZATION 'user_name'`
+	- ## CREATE TABLE:
+		- Si specifica la struttura di una nuova tabella o relazione vuota.
+		- Specifica gli attributi e vincoli iniziali.
+		- ### ES:
+			- ![[Pasted image 20251009162933.png|450]]
+- # Tipi di dato:
+	- Non è [[tipi nei linguaggi di programmazione#^f76e46|strongly typed]] quindi un eventuale corrispondenza sono i domini
+	- ## Di base: 
+		- ### Stringhe:
+			- Possono essere di lunghezza fissa o variabile 
+		- ### Numerico:
+			- Numeri interi, float,...
+		- ### DATA, TIME, INTERVAL
+		- ### BOOLEANI
+		- ### BLOB, CLOB:
+			- Che rappresentano collezioni di dati di grandi dimensioni.
+			- Possono essere testuali o meno.
+		- 
+	- ## Custom:
+		- ### CREATE DOMAIN:
+			- Ogni tipo di dati custom potrebbe essere usato per definire nuove relazioni, con relativi vincoli e valori predefiniti.
+			- #### ES:
+				- ![[Pasted image 20251009190906.png]]
+- # Vincoli delle tabelle:
+	- ## NOT NULL
+	- ## UNIQUE:
+		- Quando si vogliono definire degli attributi che Definiscono le chiavi
+		- Come elemento singolo
+	- ## PRIMARY KEY:
+		- Solo una e implica un NOT NULL
+	- ## CHECK:
+		- Limita il range di valori che possono essere messi in una colonna 
+		- ### ES:
+			- ![[Pasted image 20251009193754.png|450]]
+			- Permette ad un valore di essere presente se è compreso tra 18 e 30
+	- ## Vincoli integrità referenziale
+		- `REFERENCES` and `FOREIGN KEY`:
+		- Definiscono i vincoli di [[Restrizioni di integrità#^c7cc1f|integrità referenziale]]
+		- Possono essere definiti su singoli o multipli oggetti
+		- ### ES:
+			- ![[Pasted image 20251009191530.png|450]]
+			- ![[Pasted image 20251009191541.png|450]]
+			- ![[Pasted image 20251009191556.png|450]]
+		- Si possono definire _azioni attivate referenziali_ quando questi vincoli vengono violati
+			- ![[Pasted image 20251009191916.png]]
+			- ### DELETE:
+				- #### CASCADE:
+					- Si cancellano le tuple di riferimento
+				- #### SET NULL:
+					- Il valore degli attributi di riferimento cancellati viene rimpiazzato con `NULL`
+				- #### SET DEFAULT:
+					- Come il SET NULL ma con un valore predefinito.
+				- #### NO ACTION:
+					- Non viene permessa nessuna rimozione
+			- ### UPDATE:
+				- #### CASCADE:
+					- Il valore della `FOREIGN KEY` di riferimento viene aggiornato col nuovo valore
+				- #### SET NULL:
+					- Il valore degli attributi di riferimento aggiornati viene rimpiazzato con `NULL`
+				- #### SET DEFAULT: 
+					- Come il SET NULL ma con un valore predefinito.
+				- #### NO ACTION:
+					- Non viene permesso l'update.
+- # Azioni che cambiano lo schema:
+	- ## ALTER DOMAIN:
+		- Permette di alterare i domini definiti precedentemente
+		- Deve essere usato insieme a parametri come:
+			- `SET DEFAULT, DROP DEFAULT, ADD CONSTRAINT or DROP CONSTRAINT`
+		- ### ES:
+			- `ALTER DOMAIN Grade SET DEFAULT 30`
+				- Setta il valore predefinito di `Grade` a 30
+				- Comando applicato solo quando invocato e quando vengono trovati dei valori mancanti per `Grade`
+			- `ALTER DOMAIN Grade DROP DEFAULT`
+				- Rimuove valore predefinito
+			- ![[Pasted image 20251009192828.png|450]]
+	- ## ALTER TABLE:
+		- Fa dei cambiamenti alle tabelle definite precedentemente
+		- Deve essere usato insieme a parametri come:
+			- `ALTER COLUMN, ADD COLUMN, DROP COLUMN, DROP CONSTRAINT or ADD CONSTRAINT`
+		- ### ES:
+			- ![[Pasted image 20251009193148.png|450]]
+			- ![[Pasted image 20251009193206.png|450]]
+	- ## DROP DOMAIN:
+		- Rimuove un tipo di dato definito da un utente
+		- ### ES:
+			- `DROP DOMAIN Grade`
+	- ## DROP TABLE:
+		- Rimuove l'intera istanza di una tabella insieme agli schema e ai dati
+		- ### ES:
+			- `DROP TABLE OFFENCES`
+- # Definire gli indici:
+	- Rendono più veloce l'accesso quando si cerca di accedere e cercare i dati che possono essere creati associandoli alle tabelle.
+	- Lavora a livello fisico dei dati non a quello logico
+	- Aggiungere altri elementi dopo l'indicizzazione potrebbe portare ad un rallentamento in quanto si necessita di aggiornare ogni volta l'indice.
+	- ## ES:
+		- ![[Pasted image 20251017153207.png|450]]
+- # Operazioni sui dati:
+	- ## Interrogazione
+		- ### Select:
+			- ![[Pasted image 20251018102335.png]]
+			- Le parti riguardanti `FROM` e `WHERE` si chiamano _clausole_
+			- La semantica è: seleziono una lista di attributi dalla `TableList` che rispetti determinate condizioni
+			- Si può usare nell' `attributeList` il `*` per indicare tutti gli attributi
+			- #### ES:
+				- ![[Pasted image 20251018102711.png|650]]
+				- ![[Pasted image 20251018102728.png|650]]
+			- #### Renaming:
+				- ![[Pasted image 20251018102847.png|650]]
+				- Permette di cambiare il nome degli attributi o relazioni in output mettendo il nome che vogliamo vedere dopo l' `AS`
+			- #### LIKE:
+				- `WHERE Name LIKE 'J_m%'` indica che l'attributo `Name` deve rispettare la condizione dove: la prima lettera è una "J" la terza è una "m" e il resto della stringa va bene qualunque sia (anche vuota)
+			- #### Valori NULL:
+				- Si usa il controllo `IS NULL`
+			- è possibile anche usare delle espressioni nella _target list_ come:
+				- `SELECT Income/2 AS HalvedIncome`
+				- In questo modo si avrà come attributo in output `HalvedIncome` che sarà generato a partire dall'espressione usata. 
+				- Ciò fa capire come SQL sia più espressivo dell' [[Algebra relazionale]] e del [[Calcolo relazionale]]
+		- ### Projection:
+			- A differenza dell' [[Algebra relazionale]] che lavora sugli insiemi fare una proiezione avendo come risultato delle tuple identiche non porterà ad un collasso delle tuple ma verranno indicati i duplicati. Per far si che non appaiano si necessita di usare `SELECT DISTINCT`:
+				- ![[Pasted image 20251018103433.png|650]]
+		- ### Join:
+			- Usare più relazioni dopo un  `FROM` porterà ad un [[Algebra relazionale#^0c9bee|join]] 
+			- A volte si potrebbe necessitare una rename nel [[Algebra relazionale#^dd2800|prodotto cartesiano]] e nella _target list_
+			- Le join possono essere _implicite_ o _esplicite_
+				- ![[Pasted image 20251018103828.png|500]]
+			- La sintassi è:
+				- ![[Pasted image 20251018103907.png|500]]
+	- ## Modifica:
+- # Link Utili:
+	- 

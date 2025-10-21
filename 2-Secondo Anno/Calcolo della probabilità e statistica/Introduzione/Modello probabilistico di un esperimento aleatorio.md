@@ -1,0 +1,46 @@
+---
+tags: 
+aliases:
+  - esperimento aleatorio
+  - esito
+  - evento
+  - spazio campionario
+  - esiti favorevoli
+data: "`2025-02-23 12:45`"
+---
+- # Concetti primitivi:
+	- ## 1) Esperimento aleatorio: ^58d2bd
+		- è un esperimento di cui non si conosce il risultato con certezza
+	- ## 2) Esito: ^5ebd00
+		- è un ipotetico risultato dell’esp aleatorio
+	- ## 3) probabilità
+	- ## ES:
+		- Esp aleatorio: _lancio di un dado_
+		- Esiti: _1, 2, 3, 4, 5, 6_
+		- ### OSS: 
+			- _sotto-esperimenti aleatori_: 10 lanci del dado
+- # Evento: ^18c7b9
+	- Un _evento_ è un’affermazione che riguarda l’ipotetico risultato dell’esp aleatorio, di cui posso dire con certezza se è vero o falso _solo_ una volta visto l’esito ^a83f11
+	- ## ES:
+		- Esp aleatorio: _lancio di un dado_
+		- $A=$ “esce un numero pari”
+- # Spazio campionario: ^521af6
+	- Si chiama _spazio campionario_ indicato con $\Omega$ , un qualunque insieme che contiene tutti gli esiti dell’esp aleatorio, rappresentati con un _opportuno codice_.
+	- ## ES:
+		- lancio una moneta.
+		- $\Omega=\{t,c\} \vee \{0,1\}\vee \{T,C\}...$
+		- ### OSS:
+			- si potrebbe anche prendere $\Omega= \mathbb{R}$
+- # Esiti favorevoli:
+	- gli esiti per cui un evento è vero sono detti _eventi favorevoli_
+	- Un evento è il sottoinsieme di $\Omega$ degli eventi favorevoli.
+	- $\emptyset$ se non ci sono eventi favorevoli
+	- ## ES:
+		- _lancio di un dado_
+		- $\Omega=\{1, 2, 3, 4, 5, 6\}$
+			- $\Omega=\mathbb{R}$
+		- A= “esce un numero pari”
+		- $A\subseteq \Omega \implies A= \{2,4,6\}$
+			- $A=\{2k: k\in \mathbb{Z}\}$
+- # Link Utili:
+	- 

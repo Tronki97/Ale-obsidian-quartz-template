@@ -1,0 +1,81 @@
+---
+tags: []
+aliases:
+  - RAID 0
+  - RAID 1
+  - RAID 4
+  - RAID 5
+  - RAID 6
+  - striping
+data: "`2025-04-06 22:49`"
+---
+- # Problema:
+	- La velocità dei processori sta crescendo molto più velocemente rispetto alla velocità delle memorie secondarie
+	- Quindi per ovviare al problema di potrebbe usare il parallelismo.
+		- Ovvero utilizzare un array di dischi indipendenti, che possono gestire più richieste I/O in parallelo.
+		- Bisogna però garantire che i dati letti in parallelo si trovino su dischi indipendenti.
+- # Def:
+	- RAID (_Redundant Array of Independent Disks_) Consiste in 7 (0-6) schemi diversi che rappresentano diverse architetture di distribuzione dei dati.
+	- Quello che accomuna questi 7 schemi è:
+		- Un array di dischi visti dal [[Sistema operativo]] come un singolo disco logico.
+		- I dati sono distribuiti tra i vari dischi in questo array
+		- La capacità ridondante di questi dischi si può usare per memorizzare informazioni di parità, ovvero utili per fare il _recovery di dati_ in caso di guasti. 
+- # Guasti:
+	- Usare più dischi aumenta il rischio di guasti nel sistema, e appunto per compensare si utilizzano meccanismi di parità.
+- # Performance:
+	- Il data path che va dai dischi alla memoria (controller, bus, etc) deve sostenere le maggiori performance.
+	- Il [[Sistema operativo]] deve fare, al disco, delle richieste soddisfacibili in maniera efficiente:
+		- Letture di grandi quantità di dati sequenziali.
+		- Gran numero di richieste indipendenti.
+- # RAID 0:
+	- Non ha meccanismi di ridondanza.
+	- Usato per applicazioni in cui l’affidabilità non è importante, ma velocità e costo basso lo sono.
+	- I dati vengono distribuiti su più dischi
+	- ## Vantaggi:
+		- Se due richieste di I/O riguardano blocchi indipendenti di dati, c'è la possibilità che i blocchi siano su dischi differenti.
+		- Le due richieste possono essere evase in parallelo.
+	- ## Striping:
+		- RAID viene visto come un disco logico i cui dati vengono suddivisi in _strip_ (settori, blocchi, etc…). Gli _strip_ consecutivi vengono distribuiti su dischi diversi, aumentando le performance della lettura dei dati sequenziali.
+		- ![[Pasted image 20250406224531.png]]
+	- ## Performance:
+		- Efficiente per grandi trasferimenti di dati, soprattutto se la dimensione è relativamente grande rispetto alla dimensione degli _strip_
+		- Efficiente quando c’è un gran numero di richieste indipendenti, in particolare se la quantità di dati richiesta è simile alla dimensione degli _strip_.
+- # RAID 1:
+	- La ridondanza è ottenuta duplicando tutti i dati su due insiemi indipendenti di dischi.
+	- Come il RAID 1 anche questa è basata su _striping_, ma in questo caso uno strip viene scritto su due dischi diversi.
+	- Di conseguenza il costo per unità di memoria raddoppia.
+	- ![[Pasted image 20250407213130.png]]
+	- ## Performance:
+		- Una richiesta di lettura può essere evasa da uno qualsiasi dei dischi con il dato necessario.
+			- Può essere scelto quello con tempo di seek minore.
+		- Una richiesta di scrittura deve essere evasa da tutti i dischi, quindi il tempo di scrittura è uguale a quello del RAID 0.
+			- Quindi il tempo dipende dal disco con seek maggiore.
+	- ## ridondanza:
+		- Il recovery è molto semplice, quando un disco si guasta basta guardare l’altro disco con gli stessi dati da recuperare, ma serve sostituire il disco guasto e fare copia del disco funzionante.
+- # RAID 4:
+	- Si usano sempre gli _strip_ ma con dimensioni relativamente grandi.
+	- Utilizza degli strip di parità:
+		- Ne viene calcolato uno, a partire dagli strip di dati corrispondenti, bit-per-bit.
+		- Questo strip viene posto sul _disco di parità_.
+	- ![[Pasted image 20250408153351.png]]
+	- ## Lettura senza guasti:
+		- Si individua lo strip corrispondente ai dati da leggere e lo si legge.
+	- ## Lettura con guasti:
+		- Si individua lo strip corrispondente ai dati da leggere, se il disco su cui si trova è guasto, si leggono tutti gli strip rimasti e tramite lo strip di parità e si ottiene lo strip mancante.
+	- ## Scrittura senza guasti:
+		- Vengono coinvolti 3 strip perché:
+			- Suppongo di voler cambiare lo strip 1; effettuo il seguente calcolo:
+				- $$S'_{4}(i)=S_{0}(i) \oplus S'_{1}(i)\oplus S_{2}(i)\oplus S_{3}(i)$$
+					- Dove $S'_{1}(i)$ è il nuovo valore dello strip da scrivere e $S_{4}'$ è il suo relativo di parità da scrivere.
+				- Si può quindi scrivere:
+					- $$S'_{4}(i)=S_{0}(i) \oplus S'_{1}(i) \oplus S_{1}(i) \oplus S_{1}(i)\oplus S_{2}(i)\oplus S_{3}(i)$$
+					- $$S'_{4}(i)=S_{4}(i)\oplus S'_{1}(i)\oplus S_{1}(i)$$
+- # RAID 5:
+	- Come il RAID 4 ma i blocchi di parità sono sparsi fra vari dischi.
+	- Questo permette di evitare il collo di bottiglia che si ha nel RAID 4 in quanto la parità si può trovare in vari dischi diversi.
+	- ![[Pasted image 20250408154501.png]]
+- # RAID 6:
+	- Come il RAID 5 ma con due strip di parità.
+	- Aumenta l’affidabilità visto che si necessita il guasto di  3 dischi diversi perché i dati non siano più recuperabili.
+- # Link Utili:
+	- 

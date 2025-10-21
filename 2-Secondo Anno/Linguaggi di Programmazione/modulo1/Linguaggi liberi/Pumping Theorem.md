@@ -1,0 +1,38 @@
+---
+tags: []
+aliases: 
+data: "`2024-10-22 18:08`"
+---
+- # Def:
+	- $L$ è libero $\implies \exists N>0: \forall z\in L \ \ con\ \ |z|\ge N$ 
+	- $\exists u,v,w,x,y$ tali che:
+		- 1) $z=\mathbf{uvwxy}$
+		- 2) $|vwx|\le N$
+		- 3) $|vx|\ge 1$
+		- 4) $\forall k\ge 0$    $\mathbf{uv^{k}wx^{k}y}\in L$
+	- ## Dim:
+		- Sia $G$ una [[Grammatiche#^c95cdc||grammatica libera]] tale che $L=L(G)$ 
+		- sia $b$ il massimo numero di simboli che compaiono nella parte destra di una regola $R$ 
+			- $b=max\{|\alpha|\ \ |\ A\to \alpha\in R\}$ 
+			- $b\ge2$ altrimenti la grammatica sarebbe _banale_
+		- Fissato $N=b^{|NT|+1}$ allora ogni [[Alberi di derivazione]] per $z$ con $|z|\ge N$ deve avere altezza $|NT|+1$ 
+		- Preso un qualunque $z\in L$ con $|z|\ge N$ considero il suo albero di derivazione:
+			- ![[Pasted image 20241022181749.png]]
+	- Questo Teorema lo si usa spesso per determinare se un _linguaggio non è libero_. Un esempio di questo può essere:
+		- $$L=\{a^{n}b^{n}c^{n}| n\ge 0\}$$
+		- fisso $N>0$ generico.
+		- scelgo $z=a^{N}b^{N}c^{N}$ 
+		- $\forall u,v,w,x,y:$ 
+			- (1) $z=uvwxy$
+			- (2) $|vwx|\le N$
+			- (3) $|vx|\ge 1$
+			- $\implies$ le estremità di $vwx$ non possono essere $a$ e $c$ 
+		- Caso $vwx$ non contiene $c$: 
+			- (le $c$ sono tutte in $y$)
+			- $\implies$ $uv^{2}wx^{2}y$ cambia il numero di $a$ e/o $b$ ma non quelle di $c$ $\implies$ $uv^{2}wx^{2}y\notin L$   
+		- Caso $vwx$ non contiene $a$:
+			- (le $a$ sono tutte in $u$) 
+			- $\implies$ $uv^{2}wx^{2}y$ cambia il numero di $b$ e/o $c$ ma non di $a$ $\implies$ $uv^{2}wx^{2}y\notin L$ 
+		- Da tutto ciò risulta che $L$ _non è libero_.
+- # Link Utili:
+	- 

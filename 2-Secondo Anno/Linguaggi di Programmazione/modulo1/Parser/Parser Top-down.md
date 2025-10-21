@@ -1,0 +1,121 @@
+---
+tags: []
+aliases:
+  - First
+  - first
+  - Follow
+  - follow
+  - tabella diparsing
+data: "`2024-11-07 12:01`"
+---
+- # Argomento:
+	- essenzialmente un [[PDA deterministico|DPDA]] che riconosce per [[Automi a Pila (PDA)#^a594b1|pila vuota]] quindi si necessita che il linguaggio $L$ goda della _prefix proprety_, e $L\cdot \$$ ne gode.
+		- Dove $\$$ è un simbolo speciale che non fa parte dei simboli di nessuna grammatica e serve a segnalare la fine della stringa.
+	- un parser _a discesa ricorsiva è molto inefficiente_:
+		- ## Nondeterminismo:
+			- nel caso peggiore guarda tutte le produzioni con complessità totale di $O(b^{|w|})$
+		- ## Guidare la scelta delle produzioni:
+			- guardano 1 o più caratteri successivi:
+				- $A\to aB|bC$
+					- $a \implies$ uso $A\to aB$
+					- $b \implies  A\to bC$
+				- $S\to ac|aSb$
+					- $ac \implies S\to ac$
+					- $aa \implies S\to aSb$
+			- Si utilizzano due funzioni ausiliare:
+				- ### First:
+					- dico che $First(\alpha)$ è insieme dei T ([[Grammatiche#^24b447||terminali]]) che possono stare in prima posizione in una stringa derivabile da $\alpha$
+					- Per $a\in T$
+						- $$a\in First(\alpha) \iff\alpha \Rightarrow^{*}a \beta$$
+							- Con $\beta \in (T\cup NT)$
+					- Inoltre:
+						- $$\alpha \Rightarrow^{*} \epsilon \implies \epsilon \in First(\alpha)$$
+					- #### ES:
+						- $A\to aB|bC$
+							- $\begin{cases} First(aB)=\{a\}\\ First(bC)=\{b\} \end{cases}$ 
+							- e se faccio l’intersezione dei risultati ottengo $\emptyset$ che mi garantisce il determinismo
+					- #### OSS:
+						- a volte il first non basta 
+					- #### Calcolare i First:
+						- Sia $N(G)\subseteq NT$ insieme dei simboli annullabili dove un simbolo A ci appartiene sse $A\Rightarrow^{*}\epsilon$ 
+						- $$\forall x\in T, \ \ First(x)=\{x\}$$
+						- $$\forall x\in NT, \ \ First(x)=\emptyset$$
+						- Poi ripetere il seguente ciclo finché non ci sono cambiamenti in una iterazione:
+							- ![[Pasted image 20250322155825.png]]
+						- $$\forall X \in N(G),\ First(X):=First(X)\cup \{\epsilon \}$$
+						- Si può estendere il $First$ ad $\alpha \in (T\cup NT)^{*}$ in questo modo:
+							- ![[Pasted image 20250322160054.png]]
+						- In pratica, $First(A)=First(\alpha_{1})\cup...\cup First(\alpha_{k})$
+							- ![[Pasted image 20250322160356.png]]
+				- ### Follow: ^ea28e7
+					- Data una [[Grammatiche#^c95cdc|grammatica libera]] $G$ e $A\in NT$, dico che $Follow(A)$ è l’insieme dei $T$ che possono comparire immediatamente a dx di $A$:
+					- Con $a\in T$, :
+						- $$a\in Follow(A)\iff S\Rightarrow^{*}\alpha Aa \beta$$
+							- Per qualche $\alpha, \beta \in (T\cup NT)^{*}$
+					- $\$ \in Follow(A)$ se $S\Rightarrow^{*} \alpha A$
+						- Visto che $S$ può essere derivato in $S$ in un tot di mosse.
+					- #### ES:
+						- $S\to Ab \ | \ c$      $A\to aA \ |\  \epsilon$
+						- $Follow(S)=\{\$\}$
+						- $Follow(A)=\{b\}$ 
+					- #### Calcolare i Follow:
+						- $\forall X\in NT$ si inizializza $Follow(X):=\emptyset$
+						- $Follow(S):=\{\$\}$
+						- Poi si ripete il seguente ciclo finché non ci sono cambiamenti nei $Follow$ in una iterazione:
+							- ![[Pasted image 20250322160711.png]]
+							- Quindi si cercano tutte le produzioni in cui $Y\in NT$ e per ognuna di esse si applica la 1 o la 2 regola a seconda che $Y$ sia in ultima posizione o meno.
+				- ### ES:
+					- $E\to TE'$     $E'\to \epsilon \ |\ +E \ |\ -E$      $T\to AT'$     $T'\to \epsilon\ |\ *T$    $A\to a \ |\ b\ |\ (E)$
+					-  ![[Pasted image 20250322163926.png]]
+					- ![[Pasted image 20250322164421.png]]
+- # Tabella di Parsing LL(1):
+	- Uno strumento per risolvere il [[nondeterminismo e parallelismo|nondeterminismo]] che legge l’input da sinistra a destra con derivazione leftmost con _1_ simbolo di look-ahead.
+	- ## Def:
+		- Una tabella di parsing $M$ è una tabella con $T\cup \{\$\}$ sulle colonne e $NT$ sulle righe.
+			- Dove $M[A,a]$ contiene, per ogni produzione $A\to \alpha$:
+				- $A\to \alpha$ se $a\in Follow(\alpha)$
+				- Oppure inserisco $A\to \alpha$ in tutte le caselle $M[A,x]$ se $\epsilon \in First(\alpha)$
+					- Dove $x\in Follow(A)$ ed $x$ può essere ${\$}$ 
+			- Se ogni casella contiene al più una produzione allora il parser è _deterministico_ 
+	- ## Teorema:
+		- $G$ è $LL(1) \iff$ $\forall$ coppia di produzioni distinte con la stessa testa $A\to \alpha\ |\ \beta$ ho che:
+			- $First(\alpha)\cap First(\beta)=\emptyset$ 
+			- $\epsilon \in First(\alpha) \implies First(\beta)\cap First(A)=\emptyset$
+			- $\epsilon \in First(\beta) \implies First(\alpha)\cap Follow(A)=\emptyset$ 
+		- ### Dim:
+			- Se $G$ è $LL(1)$ allora la tabella di parsing è deterministica e quindi ogni casella contiene al più una produzione.
+				- Quindi se ho due produzioni $A\to \alpha\ |\ \beta$ con $First(\alpha)\cap First(\beta)\ne \emptyset$ allora ci sarebbero due produzioni nella stessa casella.
+	- ## ES:
+		- ![[Pasted image 20250322170726.png]]
+		- Per ogni produzione:
+			- 1) per ogni a $\in T$ e $a \in First(\alpha)$ inserisco $A\to \alpha$ nella casella $M[A, a]$ 
+			- 2) se $\epsilon \in First(\alpha)$, inserisco $A\to \alpha$ in tutte le caselle $M[A, x]$ per $x\in Follow(A)$ con $x$ che può essere ${\$}$.
+- # Parser LL(1) non ricorsivo:
+	- Uso una pila definita come $Pila:=S{\$}$ ovvero inizialmente sulla pila ho il simbolo iniziale.
+	- $X:= S$ ovvero top della pila 
+	- $input:= w{\$}$ e $i_{C}$ primo carattere dell’input.
+	- ![[Pasted image 20250322171533.png]]
+	- ## ES:
+		- $$G= \begin{cases}S \to aAB \ | \ B \\ A \to a \\ B\to bB\ | \ b\end{cases}$$
+		- Il linguaggio generato dalla grammatica: $L(G)= (aa| \epsilon)b^{+}$
+		- Ma questa grammatica non è $LL(1)$ a causa della terza produzione quindi è richiesto di fattorizzare:
+		- $$G'=\begin{cases}S \to aAB \ | \ B \\ A \to a \\ B\to bB' \\ B' \to B\ | \ \epsilon  \end{cases}$$
+		- E questa nuova grammatica è $LL(1)$ perché l'intersezione dei $First$ di tutti i prodotti delle produzioni sono $\emptyset$ 
+		- ![[Pasted image 20250801175128.png]]
+		- ![[Pasted image 20250801175142.png]]
+- # Teorema:
+	- Ogni [[Linguaggi regolari|linguaggio regolare]] è generabile da una [[Grammatiche]] $G$ di [[Classe di una grammatica|classe]] LL(1)
+	- ## Dim:
+		- Se $L$ è regolare allora $\exists$ [[Automi finiti deterministici|DFA]] $M=(Q, \Sigma, \delta, q_{0}, F)$ tale che $L=L[M]$.
+		- A partire da $M$, si costruisce la grammatica regolare $G=(NT, T, S, R)$ con:
+			- $NT=\{[q] \ |\ q\in Q \}$
+			- $T=\Sigma$
+			- $S=[q_{0}]$
+			- $R$ definita da:
+				- $$\delta(q,a)=q' \implies ([q] \to a[q']) \in R$$
+				- $$q\in F \implies ([q]\to \epsilon) \in R$$
+				- Questa è la seconda tecnica per trasformare un DFA in _grammatica regolare_
+		- Tutto ciò dice che la grammatica $G$ è $LL(1)$
+		- Infatti, visto che $M$ è [[Automi finiti deterministici|deterministico]], da ogni $q\in Q$ per ogni $a\in \Sigma$: $\exists! \ q'$, $q\xrightarrow{a}q'$ ovvero $[q]$ avrà una sola produzione $[q]\to a[q']$ che inizia per $a$; inoltre, se $q$ è finale, allora $[q]\to \epsilon$ è applicabile solo per i $Follow([q])=\{ {\$} \}$ e ciò implica che non c'è nessun conflitto nella tabella di parsing, poiché nessuna produzione genera ${\$}$   
+- # Link Utili:
+	- 

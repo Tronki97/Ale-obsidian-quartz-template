@@ -1,0 +1,21 @@
+- ## Conda
+	- scaricare anaconda dal sito.
+	- https://www.anaconda.com/download/success
+	- `source ~/anaconda3/bin/activate` 
+- ## Creare il VENV
+	- Virtual environment:
+		- nel terminale: 
+			- `conda create --name CN24`
+			- `conda activate CN24`
+- ## Eseguire un file
+	- ### Windows:
+		- andare nella directory che contiene il file da eseguire poi digitare:
+			- `python "nome file.py"`
+- ## Librerie usate:
+	- Tutte da installare usando o _pip_ o _conda_
+	- ### numpy:
+	- ### scipy
+	- ### pandas
+	- ### matplotlib
+	- ### scikit-image
+	- ### scikit-learn

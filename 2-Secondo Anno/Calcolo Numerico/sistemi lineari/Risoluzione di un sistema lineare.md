@@ -1,0 +1,109 @@
+---
+tags: 
+aliases:
+  - cholesky
+  - numero di condizione
+  - errore inerente
+  - norma 1
+  - norma 2
+  - norma matriciale
+  - numero di condizionamento
+  - fattorizzazione LU
+  - norma di frobenius
+  - definita positiva
+---
+
+- # Premessa 
+	- DEF: [[Equazioni lineari#^ff8be3||sistema lineare]]
+	- _m_ equazioni 
+	- _n_ incognite 
+	- ## Matrice singolare:
+		- matrice quadrata il cui [[Determinante|det]] = 0
+- # Sistema quadrato:
+	- $m=n$
+	- $A \underline{x}=\underline{b}$ 
+	- è una matrice $n \times n$ 
+	- $\underline{x}=\begin{pmatrix}x_{1}\\ \vdots \\ x_{n}\end{pmatrix}$
+	- $\underline{b}=\begin{pmatrix}b_{1}\\ \vdots \\ b_{n}\end{pmatrix}$
+- Il sistema $A \underline{x}= \underline{b}$ ha una sola soluzione $\iff$ A è non singolare
+	- ovvero [[Determinante||det]](A) $\ne0$ 
+- Approcci algoritmici per calcolare la soluzione:
+	- usando [[Algoritmo di Gauss||gauss]] 
+- Stima dell'_errore inerente_:
+	- $$A \underline{x}= \underline{b}\iff A^{-1}Ax=A^{-1}b\iff x=A^{-1}b$$
+	- [[Complessità computazionale]] del calcolo di $A^{-1}$ è $O(n^{3})$ 
+	- per calcolare la soluzione di un sistema triangolare la complessità computazionale è $O\left( \frac{n^{2}}{2} \right)$
+	- 1) metodi diretti:
+		- sono più accurati, non hanno errori di troncamento ma sono poco efficienti computazionalmente
+		- fattorizzare la [[Matrici||matrice]] $A$ equivale a scrivere $A$ come [[Matrici#^f58df4||prodotto tra matrici]] 
+	- 2) metodi iterativi:
+		- meno accurati ma sono più efficienti computazionalmente.
+- # Fattorizzazione LU
+	- chiamata così perché rappresenti $A=L*U$ che sono due matrici _triangolari_ 
+		- _U_ inferiore(0 sotto la diagonale principale),
+		- _L_ superiore(0 sopra la diagonale principale) 
+	- tra L e M fai il prodotto righe per colonne.
+	- questo metodo funziona solo se A è una matrice singolare.
+	- per farlo funzionare su tutte le matrici (ovvero quelle _non singolari_) si aggiunge una matrice _P_ tale che $PA=LU$  
+	- [[Complessità computazionale]]:
+		- $O\left( \frac{n^{3}}{3} \right)$
+	- ### Caso particolare: 
+		- #### matrice definita positiva: ^bc9cac
+			- $A\to$ simmetrica e definita _positiva_ ovvero:
+				- quadrata e se $\forall x \in \mathbb{R}^{n}$ $x^{T}Ax\geq 0$ 
+				- #### Proprietà:
+					- gli [[Autovalore]] di $A$ sono tutti positivi. se la matrice $A$ è definita positiva.
+					- se $A$ è definita semi-positiva, gli autovalori sono positivi o nulli.
+		- #### Fattorizzazione di Cholesky ^c7c2d7
+			- $A=LL^{T}$ 
+			- $L$ è una matrice triangolare inferiore
+			- e questa operazione ha una complessità computazionale più bassa rispetto a quella $LU$:
+				- $O\left( \frac{n^{3}}{6} \right)$
+			- in [[Python]] la funzione per fare questa forma particolare di fattorizzazione è `from scipy import linalg` e `cholesky(A, lower, overwrite_a, check_finite)`. `Lower`(`Bool`) determina quale triangolare ritornare se superiore o inferiore 
+- ## Errore inerente:
+	- ### Norma:
+		- #### vettoriale:
+			- ##### 1:
+			- è una funzione che si indica con $\| . \| : \mathbb{R}^{n} \to \mathbb{R}$ 
+			- 1) $\| x \|\geq 0$ $\forall x \in \mathbb{R}^{n}$  
+				- $\| x \|= 0\iff x=0$ 
+			- 2) $x \in \mathbb{R}, \| \alpha x\| = |\alpha| *\|x\|$
+			- 3) $\forall x,y \in \mathbb{R}^{n}$
+				- $\| x+y\|\leq \|x\|+\|y\|$
+			- ##### 2:
+				- $$||x||_{2}=\sqrt{x_{1}^{2}+x_{2}^{2}+...+x_{n}^{2}}=\sqrt{x^{T}x}$$
+				- 
+		- #### Matriciale:
+			- è una funzione che si indica con $\| A \| : \mathbb{R}^{m \times n} \to \mathbb{R}$ 
+			- 1) $\| A \| \ge 0 \ \ \ \forall A \in \mathbb{R}^{m \times n}$
+			- 2) $\alpha\in \mathbb{R}$, $\| \alpha A \| =|\alpha| * ||A||$
+			- 3) $\forall A, B$ 
+			- $||A||_{2}=\sqrt{P(A^{T}A)}: A^{T}A\in \mathbb{R}^{n}$
+				- $P(M)\to$ massimo autovalore in modulo
+			- $||A||_{1}$ valore massimo della somma aritmetica di ogni riga. 
+	- ### Norma di Frobenius:
+		- $||A||_{F} =\sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}^{2}}$ 
+		- $A=\begin{pmatrix}0&-1&2\\3&4&-5\end{pmatrix}$
+		- $||A||_{F}=\sqrt{55}$ 
+		- $||I||=\sqrt{3}$
+		- Quindi è la radice di tutti i valori nella [[Matrici||matrice]] elevati alla seconda 
+	- ### ES:
+		- $A\in \mathbb{R}^3$
+		- $A=\begin{pmatrix}1&0&0\\0&-4&0\\0&0&6\end{pmatrix}$
+		- gli autovalori sono:
+			- $\lambda_{1}=1; \ \lambda_{2}=16; \ \ \lambda_{3}=36$
+		- $||A||_{2}=\sqrt{36}=6$ 
+	- La soluzione esatta di $Ax=b$ è:
+		- $x=\begin{pmatrix}1\\1\\1\end{pmatrix}$ e quella calcolata sia $x_{0}=\begin{pmatrix}1.01\\0.98\\1\end{pmatrix}$
+		- $E_{A}=||x-x_{0}||$  $E_{R}=\frac{||x-x_{0}||}{||x||}$ [[Numeri finiti#^f6f707||errore assoluto]] e [[Numeri finiti#^db020b||relativo]] 
+			- $$E_{A}=||(-0.01,0.02,0)||_{2}=\sqrt{10^{-4}+2*10^{-4}+0}=3*10^{-2}$$ 
+			- $$E_{R}=\frac{E_{A}}{||x||_{2}}=\frac{E_{A}}{\sqrt{3}}=\frac{3*10^{-2}}{\sqrt{3}}$$
+	- ### Definizione:
+		- dovuto alla rappresentazione con i [[Numeri finiti]] quello chiamato chiamato "_errore di rappresentazione_" 
+		- si suppone che ci sia un errore nella rappresentazione dei dati ma le operazioni vengono fatti in aritmetica reale.
+		- ![[Drawing 2024-09-30 14.45.43.excalidraw]]
+		- $||x-(x-\Delta x)||=||\Delta x||$
+		- $$\frac{||\Delta x||}{||x||}\le K(A)\left( \frac{||\Delta A||}{||A||} +\frac{||\Delta b||}{||b||}\right)$$
+			- $K(A)$ è il _numero di condizione_ della matrice  ^47956e
+				- $K(A)=||A||*||A^{-1}||\ge1$ 
+				- _oppure semplicemente l’autovalore più grande diviso per quello più piccolo in modulo_.

@@ -1,0 +1,124 @@
+---
+tags: []
+aliases:
+  - binding alla compilazione
+  - binding al caricamento
+  - binding all'esecuzione
+  - indirizzi logici
+  - indirizzi fisici
+  - indirizzo logico
+  - indirizzo fisico
+  - MMU
+  - mmu
+  - TLB
+  - transmission lookaside buffer
+  - pagine
+  - frame
+  - loading dinamico
+  - linking dinamico
+data: "`2025-03-13 17:18`"
+---
+- # Memory manager:
+	- Gestisce la memoria principale, assegna e de-alloca la memoria ai processi.
+	- Tiene traccia della memoria libera e occupata
+	- è un componente software a differenza dell’MMU. 
+- # Binding:
+	- Lo fa il compilatore ed è _l’associazione degli indirizzi logici con quelli fisici_.
+	- Può avvenire durante:
+		- ## Compilazione :
+			- Indirizzi calcolati al momento della compilazione e saranno gli stessi durante tutto il programma 
+			- Codice generato detto _assoluto_
+				- Un esempio può essere il _kernel_
+			- ![[Pasted image 20250313172457.png]]
+			- Non richiede hardware speciale, veloce e semplice ma non funziona con la _multiprogrammazione_ perché 2 processi che eseguono lo stesso programma necessiterebbero di allocare la stessa cella di memoria.
+		- ## Caricamento :
+			- Il codice generato dal compilatore non ha indirizzi assoluti ma relativi.
+			- Codice detto _rilocabile_:
+			- Il loader si occupa dei riferimenti ad indirizzi di memoria coerentemente al punto iniziale di caricamento
+			- ![[Pasted image 20250313172935.png]]
+			- Permette la multiprogrammazione non richiede hardware speciale, però gli serve una traduzione degli indirizzi da parte del loader e quindi di particolari file eseguibili
+		- ## esecuzione:
+			- Individuazione degli indirizzi effettuata durante l’esecuzione dalla _MMU_ che trasforma gli indirizzi logici in quelli fisici.
+			- ![[Pasted image 20250320151314.png]]
+			- Il problema è che la MMU è un componente complesso.
+			- Questo binding permette il multitasking,
+	- ## Indirizzi logici:
+		- Ogni processo è associato ad uno spazio di indirizzamento logico.
+		- Gli indirizzi usati in un processo sono Indirizzi logici, ovvero riferimenti a Questo spazio di indirizzamento
+	- ## Fisici :
+		- Sono gli indirizzi reali della memoria principale che sono associati agli indirizzi logici.
+		- L’MMU traduce da indirizzi logici a fisici
+- # MMU: ^b3b567
+	- ## ES:
+		- ![[Pasted image 20250320152956.png]]
+		- Si prende un registro di rilocazione $R$ che permette alla MMU di trasformare gli indirizzi logici $[0,MAX]$ in indirizzi fisici $[R,R+MAX]$. 
+	- L’MMU può fare anche attività di controllo:
+		- Il registro limite viene usato per proteggere la memoria.
+		- ![[Pasted image 20250320153710.png]]
+		- Se un processo tenta di accedere ad un indirizzo fuori dal suo spazio di indirizzamento logico, la MMU lo rileva e genera una [[Trap e interrupt#^ca5cf6|Trap]].
+- # Loading dinamico:
+	- Consente di caricare certi moduli di libreria solo quando vengono richiamati.
+	- Implementato avendo le routine su un disco che vengono caricate quando servono senza caricare tutte quelle che non servono.
+	- Però sta al programmatore conoscere e utilizzare queste cose, il [[Sistema operativo]] fornisce solo la possibilità.
+- # Linking dinamico:
+	- Unisce il codice scritto con le librerie usate generando l’eseguibile.
+	- Posticipa il linking alle librerie al momento del primo riferimento durante l’esecuzione.
+	- Ciò permette di avere eseguibili più compatti, risparmiare di conseguenza la memoria e aggiornare automaticamente delle versioni delle librerie che verranno caricate all’attivazione successiva dei programmi 
+	- `Dlopen` consente di caricare librerie dinamiche a runtime.
+		- Ed è il metodo con cui vengono caricati i _plug-In_
+- # Paginazione:
+	- _Riduce il fenomeno di frammentazione interna e elimina la frammentazione esterna._
+	- ## Pagine: ^0a9c21
+		- _Lo spazio di indirizzi logici_ viene diviso in _pagine_ di dimensione fissa.
+	- ## Frame: ^184dd2
+		- _La memoria fisica_ viene divisa in _frame_ di dimensione uguale a quella delle pagine.
+		- Quando si allocano dei processi si cerca ovunque in memoria dei frame sufficienti per contenere le pagine del processo.
+	- ## ES:
+		- ![[Pasted image 20250320165231.png]]
+		- ![[Pasted image 20250320165551.png]]
+	- ## Scegliere dimensione delle pagine:
+		- Deve essere una potenza di 2 per facilitare la traduzione degli indirizzi.
+		- Questa scelta deriva da un trade-off:
+			- Se le pagine sono piccole la tabella delle pagine cresce di dimensione.
+			- Se le pagine sono grandi si ha frammentazione interna che farà perdere grandi quantità di memoria.
+		- _E si suppone che i frame della pagina inizino da un indirizzo multiplo di 4096_.
+	- ## Implementazione della tabella delle pagine:
+		- Si potrebbe inserire in un insieme di registri ad alta velocità per facilitarne l’accesso, però sarebbe troppo costoso.
+- # Translation lookaside buffer (TLB): ^63aaa2
+	- Insieme di registri associativi ad alta velocità $O(1)$ 
+	- Ogni registro ha 2 parti:
+		- _Chiave_: che di solito è il numero di pagina
+		- _Dato_  
+	- Esistono tante coppie fatte in questo modo e quando viene fatta la richiesta di un dato con una chiave viene confrontata con tutte le chiavi presenti contemporaneamente e se c’è una corrispondenza si restituisce il dato(TLB hit), altrimenti (TLB miss) si usa la tabella in memoria, quest’ultima azione è una trap e viene gestita dal [[Sistema operativo]]. 
+	- ![[Pasted image 20250320171358.png]]
+	- Agisce come memoria cache per le tabelle delle pagine
+	- L’hardware per implementarla è costoso, con dimensioni dell’ordine di $8 -2048$ registri
+- # Segmentazione:
+	- Concetto di organizzazione della memoria.
+	- Si basa sul fatto che un processo ha bisogno della memoria per vari motivi:
+		- Codice
+		- Dati
+		- Stack
+		- Magari anche aree di memoria condivise con altri processi.
+	- Quindi separa le aree di memoria in base ai loro scopi.
+		- Codice per esempio sarebbe meglio fosse un area di memoria di sola lettura, chiamata _area text_
+		- Le aree _dati_ possono essere condivise.
+		- L’area _stack_ non deve essere condivisa tra processi e deve essere read/write
+	- Lo spazio di indirizzamento logico deve essere diviso in segmenti contigui di dimensione variabile, ogni segmento ha _nome_ e _lunghezza_ definiti.
+	- Ogni riferimento di memoria è una coppia `<nome, offset>`
+	- Questa suddivisione spetta al _compilatore_ o al _programmatore_
+	- ![[Pasted image 20250321094522.png]]
+	- ## Problemi:
+		- Usare la paginazione da sola porta a problemi che si avevano con l’allocazione contigua.
+	- ## Collaborazione:
+		- Si potrebbe usare la segmentazione e la paginazione insieme combinando i metodi di entrambi.
+		- Indirizzo diviso in :
+			- Gli ultimi 12 bit sono l’_offset_ 
+			- I primi 4 bit sono il _numero del segmento_
+		- Bisogna inoltre che la MMU abbia il supporto per entrambe le tecniche.
+		- Quindi risultiamo avere entrambi i benefici di entrambi:
+			- _Condivisione e protezione_ della segmentazione
+			- _Riduzione della frammentazione_ della paginazione
+- 
+- # Link Utili:
+	- 

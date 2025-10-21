@@ -1,0 +1,38 @@
+---
+tags: []
+aliases:
+  - ARP
+  - RARP
+data: "`2024-11-20 14:04`"
+---
+- # Intro:
+	- il router quando riceve un pacchetto da mandare all’interno della [[Sottoreti|sottorete]] deve sapere a chi mandare il pacchetto.
+	- per fare ciò il router deve conoscere l’[[MAC-address|indirizzo MAC]] della macchina a cui deve mandare il pacchetto.
+		- e quindi mandare il pacchetto a livello MAC che se ne occuperà.
+		- se chiede di mandarlo in broadcast bisogna scrivere il [[MAC-address]] di broadcast che quindi è associato a tutte le macchine che tutte riconoscono come il loro: 
+			- `FF:FF:FF:FF:FF:FF`
+			-  e se è broadcast la macchina non deve mandare _l’ack_ al mittente.
+	- il router per fare ciò usa il protocollo _ARP_ e _RARP_.
+- # ARP:
+	- introduce dinamicità per gli indirizzi [[Indirizzamento IPv4|IPv4]] 
+	- _Address Resolution Protocol_
+	- permette di associare un indirizzo IP ad un [[MAC-address|indirizzo MAC]].
+	- ## Funzionamento:
+	    - quando un router riceve un pacchetto da mandare ad una macchina con un certo indirizzo IP:
+		    - il router manda un pacchetto ARP in broadcast con il proprio indirizzo MAC e l’indirizzo IP della macchina a cui deve mandare il pacchetto. 
+		    - la macchina destinataria risponde con un pacchetto ARP con il proprio indirizzo MAC. 
+		    - se la macchina non risponde entro un certo tempo il router manda un pacchetto ARP in broadcast per vedere se la macchina è ancora connessa.
+			    - se nessuno risponde vuol dire che la macchina non è raggiungibile o inesistente. 
+		    - il router riceve il pacchetto ARP e memorizza l’associazione tra l’indirizzo IP e l’indirizzo MAC in una _tabella ARP_. 
+		    - poi d’ora in avanti qualsiasi pacchetto destinato a quell’indirizzo IP verrà mandato direttamente a quell’indirizzo MAC.
+	- ## Conseguenze:
+		- la tabella ARP è molto importante perché permette di evitare di fare ARP ogni volta che si deve mandare un pacchetto.
+		- permette di evitare certi tipi di attacco come il _spoofing_.
+			- che consiste nel mandare un pacchetto ARP con l’indirizzo MAC di un’altra macchina ma con lo stesso IP 
+			- grazie all’ARP si nota che l’indirizzo IP è già associato ad un altro MAC e quindi si capisce che c’è qualcosa che non va e quindi si può bloccare il pacchetto.
+- # RARP:
+	- _Reverse Address Resolution Protocol_
+	- permette di associare un indirizzo MAC ad un indirizzo IP.
+	- Funziona in maniera analoga all’ARP ma al contrario.
+- # Considerazioni:
+	- Le informazioni delle associazioni IP-MAC e viceversa sono memorizzate in una [[Cache]] 

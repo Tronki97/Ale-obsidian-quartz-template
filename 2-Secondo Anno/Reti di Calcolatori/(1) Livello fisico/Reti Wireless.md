@@ -1,0 +1,150 @@
+---
+tags: []
+aliases:
+  - ampiezza
+  - frequenza
+  - area di copertura
+  - raggio di trasmissione
+  - raggio di ricezione
+  - raggio di interferenza
+  - shadowing
+  - fase
+  - signal gain
+  - VSWR
+  - EIRP
+  - path loss
+  - LOS
+  - fresnel zone
+data: "`2025-03-31 11:14`"
+---
+- # Reti wireless:
+    - Tutti i classici protocolli spesso ricevono dei side-effect da queste reti e quindi necessitano di aggiustamenti. Side
+    - _Un'onda radio si ottiene facendo passare della corrente alternata in un filo conduttore_, ottenendo così un campo elettromagnetico. Questa onda è definita da una sinusoidale onde.
+        - L'energia è proporzionale alla carica elettrica che si sposta nel filo.
+    - ## Ampiezza (dB):
+        - Segnali con ampiezza più alta tendono ad andare più lontano, poiché trasmessi per più tempo perdono meno potenza. Questo significa che i segnali radio hanno un determinato raggio di copertura.
+            - La **potenza** è data dalla quantità di energia investita divisa per il tempo.
+            - Spesso si indica come prodotto tra corrente e tensione.
+    - ## Frequenza (Hz): ^041ebf
+        - Correlata alla lunghezza d'onda, calcolabile come $\frac{c}{f}$ dove $c$ è la velocità della luce.
+        - L'insieme delle frequenze utilizzabili da un dispositivo è chiamato **canale di trasmissione** o **banda**.
+        - Si misura in **Hertz (Hz)**.
+        - La resa massima di trasformazione da corrente a onda radio (e viceversa) è determinata dalla dimensione dell'antenna, che deve essere circa $1$, $\frac{1}{2}$ o $\frac{1}{4}$ della lunghezza d'onda.
+    - ## Area di copertura della propagazione radio:
+        - Rappresenta il raggio di copertura di un'antenna, cioè fino a quando quell'antenna riesce a trasmettere e ricevere il segnale.
+        - Presenta una legge di decadimento del segnale radio che è proporzionale al quadrato della distanza. A volte, a causa delle condizioni ambientali, questo decadimento può variare fino al cubo della distanza o anche di più.
+            - ![[Pasted image 20250402101053.png|200]]
+        - ### Raggio di trasmissione:
+            - Dove il segnale è ancora leggibile.
+            - Dove c'è un basso errore nella lettura del segnale.
+        - ### Raggio di ricezione:
+            - Dove l'antenna riesce a ricevere il segnale.
+            - Non c'è possibilità di comunicazione bidirezionale.
+        - ### Raggio di interferenza:
+            - Dove il segnale potrebbe non essere rilevato.
+            - Dove il segnale potrebbe essere disturbato dal rumore di fondo.
+        - ![[Pasted image 20250402101341.png|250]]
+    - ## Shadowing:
+        - Quando un ostacolo impedisce all'energia di passare come fosse nel vuoto, come un muro. Il segnale appena si imbatte in quell'ostacolo viene riflesso e quindi perde energia, che di solito diventa calore.
+        - Alte frequenze sono adatte per le trasmissioni a breve distanza e vengono influenzate dagli ostacoli. Tuttavia, permettono di trasmettere più bit al secondo.
+        - Le onde a bassa frequenza sono adatte alle lunghe distanze e subiscono pochi effetti e di basso grado di interferenza dagli ostacoli.
+    - ## Fase:
+        - Rappresenta uno spostamento nel tempo misurato in periodi di onda.
+        - Usando la rotazione della trigonometria (gradi e radianti).
+        - Deve sempre avere un riferimento, quando non viene espresso si assume che sia 0.
+    - ## Signal Gain:
+        - ### Amplificazione del segnale:
+            - **Attivo**: aggiungendo energia da fuori.
+            - **Passivo**: utilizzato per ottenere tutta l'energia e accumulare nel fuoco, ottenendo amplificazione. Ad esempio, antenne di condomini e amplificatori.
+        - ### Perdita di segnale:
+            - Utilizzata intenzionalmente con resistenze e diodi (protezione unica direzione) in connessioni wired.
+            - Nel wireless, abbiamo una perdita naturale del segnale.
+    - ## Voluta propagazione in linea retta:
+        - **Shadowing**: il segnale rimbalza poco e viene assorbito dall'ostacolo.
+        - **Riflessione**: il segnale rimbalza completamente nell'ostacolo. Ad esempio, 4 satelliti per il GPS per capire la posizione nello spazio.
+        - **Rifrazione**: modifica del segnale in base alla densità del mezzo. Possibile in acqua e in atmosfera.
+	    - **Scattering**:
+	    - **Diffrazione**:
+	    - **Fading**: dovuto al rimbalzo, il segnale che c'è e che non c'è.
+	    - **Multipath propagation**: le strade più lunghe attenuano di più il segnale. Possibile che si disturbino a vicenda le comunicazioni di uno stesso segnale.
+    - ##  VSWR:
+        - Voltage Standing Wave Ratio (Rapporto di Volo della Corrente Stazionario).
+        - Al cambiamento di impedenza, abbiamo un ritorno di segnale.
+        - Non tutto arriva all'antenna per essere trasmesso.
+        - Rischi di bruciare il trasmettitore.
+        - Distorsione delle chitarre si basa su questo principio.
+    - ## EIRP:
+        - _Equivalent Isotropically Radiated Power_ (Potenza Elettromagnetica Radiata Isotropa).
+        - Quanto effettivamente si perde arrivando all'antenna.
+        - Si parla più forte ma si disturba l'ambiente circostante.
+            - Si suppone che un antenna sia isotropica e si definisce un massimo essendo l'ampiezza dell'onda dell'isotropica minima rispetto alle altre antenne.
+        - ### ES:
+	        - Se do $16mW$ direttamente all'antenna _isotropica_ l'energia irradiata in tutte le direzioni è $16mW$
+	        - Se li do ad una che focalizza 10 volte l'energia in una direzione, il valore _EIRP_ sarebbe quello che dovrei dare ad una isotropica per irradiare $160mW$ in questo caso l'EIRP è $160mW$. 
+- # Conversione tra dBm e milliwatt:
+    - **dBi**: è il db-isotropic, la misura del guadagno passivo dell'antenna.
+        - Per avere un'antenna isotropica, questa dovrebbe avere un dipolo pari a 0. In realtà, le antenne reali concentrano l'energia in modo non isotropico, generando un guadagno passivo in una certa direzione.
+            - Il rapporto tra la potenza dell'antenna ideale isotropica e quella reale non-isotropica si esprime come il rapporto di potenze, e quindi in decibel (dB).
+                - Se un'antenna è 16 dBi, significa che concentra la potenza del segnale in modo tale che la sua energia è equivalente a $10^{(3+3)/10} = 2^2 = 4$ volte più della potenza isotropica. In termini di milliwatt (mW), ciò equivale a:
+                    - $1 \text{ mW} * 4 = 4 \text{ mW}$.
+                - Guardando il guadagno in dBi nella direzione preferenziale, si può sapere l’_EIRP_ (_Effective Isotropic Radiated Power_) dell'antenna e capire se è in regola con i limiti di potenza.
+                    - Ad esempio, se un'intential radiator trasmette 1 mW e l'antenna ha un guadagno passivo di 10 dBi, allora l'EIRP sarà $1 \text{ mW} * 10 = 10 \text{ mW}$.
+    - Da $mW$ a $dBm$:
+	    - $$ dBm = 10 * \log_{10}(mW) $$
+    - ## ES:
+	    - Segnale trasmesso a $TX=100mW$ è ricevuto a $RX=0.000005mW$
+	    - Quindi la differenza di potenza in $dB$ = $10*\log_{10}\left( \frac{RX}{TX} \right)=10*(-7.3)=-73dB$
+	    - Quindi il segnale partito con una potenza di $100mW$ arriva con un gain di $-73dB$.
+	- ## N.B:
+		- Un guadagno di $3dB$ vuol dire un raddoppiamento della potenza 
+		- Un guadagno di $10dB$ vuol dire un $*10$ della potenza 
+- # Potenza Monitoraggio:
+    - La sensibilità nei dispositivi moderni si trova nel range $[-90, ..., +10]$ dBm. A seconda della potenza in questo intervallo, si ha:
+        - **Signal Detection**: la capacità di capire ciò che ricevo.
+            - **Signal Detection Power (SDP)**: con quale tecnica trasmetto.
+            - **Channel Status Detection (CSD)**: capire se il canale è occupato o meno e quindi se posso trasmettere o no.
+        - **RSSI**: le tacchette del Wi-Fi su ogni dispositivo.
+            - Se due dispositivi hanno un RSSI massimo, a fondo scala, si confronta quanto ricevono con tale valore di RSSI. Questo è il tetto massimo ricevibile (pienamente sufficiente per ricevere bene). Non confrontare gli RSSI direttamente perché ogni dispositivo ha una scala diversa.
+- # Line Of Sight (LOS):
+	- ![[Untitled 6 1.webp]]
+    - Rappresenta la linea retta che congiunge il trasmettitore e il ricevitore. Non dovrebbe esserci alcuna ostruzione lungo questa linea.
+- # Fresnel Zone:
+	- _La zona attorno alla Line of sight_ 
+    - I segnali vengono diffratti, ma parte di quella diffrazione ri-converge nella direzione originale.
+        - A seconda del percorso di diffrazione, la fase dell'onda che torna e arriva all'antenna ricevente sarà additiva o inversa.
+    - Il blocco della Fresnel Zone può interrompere il link!
+        - Formule per calcolare il raggio massimo della zona di Fresnel:
+            - Non richiedono né potenza né tipo di antenna, perché la diffrazione è un fenomeno che vale sempre. La formula è sempre la stessa.
+    - Chiaramente, la zona di Fresnel non si applica in ambienti chiusi, dove c'è il rimbalzo da cui si ricava l'energia.
+    - **Curiosità**: La stessa curvatura terrestre può dimezzare la zona di Fresnel.
+    - La sezione di una FZ ideale dovrebbe essere libera per almeno il 60%:
+	    - $R_{60\%}=43.3*\sqrt{\left( \frac{d}{4f} \right)}$
+	    - $d$ è in miglia e  $f$ in $GHz$ 
+- # Grafici Importanti:
+    - ## Grafico di Azimuth: 
+	    - rappresenta il segnale in dB attorno all'antenna, misurato nelle 4 direzioni cardinali. Un dipolo avrà un grafico di _Azimuth_ quasi circolare perché è omni-direzionale.
+	    - ![[Pasted image 20250701104413.png|150]]
+    - ## Grafico di Elevazione: 
+	    - uguale al grafico di Azimuth, ma parte da sopra l'antenna e ci gira intorno, quindi a destra, sotto e a sinistra.
+	    - ![[Pasted image 20250701104439.png|150]]
+- # Path Loss:
+    - È espresso in dB e rappresenta una stima pessimistica della dispersione sulla base della distanza e della frequenza. La formula da ricordare è:
+    - $$ PL = 36.6 + 20 \log_{10}(F) + 20 \log_{10}(D) $$
+		- Dove:
+			 - $F$ è la frequenza in MHz.
+			 - $D$ è la distanza tra il trasmettitore e il ricevitore in km (da convertire in miglia).
+	- ## Regola dei 6 dB
+	- Come regola generale si può dire che raddoppiando la distanza si ha una perdita di $6dB$ ovvero il segnale si riduce a circa $\frac{1}{4}$. Quindi per raddoppiare la distanza doppiamo quadruplicare la potenza del segnale. 
+- # Link budget:
+	- Eccesso di segnale tra trasmettitore e ricevitore.
+	- Misurata in dB, dBm o mW.
+	- _RS: il segnale più debole ricevibile_:
+		- Più basso è meglio è.
+	- Il link budget si calcola facendo:
+		- Potenza ricevuta in dBm - RS in dBm.
+	- ## ES:
+		- $RS=-82dBm$   potenza ricevuta= $-50dBm$:
+		- Link budget = $-50 +82=32dBm$
+		- Ciò significa che il segnale ha un margine di 32 dB prima che diventi non disponibile.
+	- ## Fade margin:
+		- Del margine extra per il link budget (di solito nell’ordine dei $[+10...+20]dB$). 

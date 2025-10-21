@@ -1,0 +1,95 @@
+---
+tags: 
+aliases:
+  - indistinguibilità
+  - tabella a scala
+data: "`2024-10-10 12:37`"
+---
+- # Def:
+	- due stati sono _indistinguibili_ tra loro se $\forall x \in \Sigma^{*}$ 
+		- $$\hat{\delta}(q_{1},x)\in F \iff \hat{\delta}(q_{2},x)\in F$$
+	- ovvero se $L[N,q_{1}]=L[N,q_{2}]$
+- # Strategia:
+	- cerco di distinguere due stati considerando le $x\in \Sigma^{*}$ a partire dalla più corta ($\epsilon$)
+		- ![[Pasted image 20241010124218.png]]
+			- cerco di vedere quali coppie di stati _non sono equivalenti_ a cominciare dalle stringhe $\epsilon$
+	- ## 1)
+		- $\epsilon$ distingue ogni stato in $F$ da ogni stato in $Q - \{F\}$ 
+			-  ~~(A,D)~~; ~~(B,D)~~; ~~(C,D)~~ 
+	- ## 2) 
+		- stringhe di lunghezza 1 ovvero "a" e "b"
+			- "a" distingue B e C perché:
+				- $\delta(B,a)=B$   e   $\delta(C,a)=D$
+				- cancellate nel passo _1_ 
+				- $B\in Q-F$ e $D\in F$ 
+			- "a" distingue A e C perché:
+				- $\delta(A,a)=B$   e   $\delta(C, a)=D$ 
+				- ma $B\in Q-F$ e $D\in F$
+			- "b" non permette di fare nuove distinzioni 
+	- ## 3) 
+		- stringhe di lunghezza 2 ma non permette di fare nuove distinzioni quindi _non ha senso procedere con stringhe più lunghe_
+	- Risulta che $A$ e $B$ sono _equivalenti_ 
+		- ![[Pasted image 20241010125052.png]]
+- # Formalizzazione:
+	- dato un [[Automi finiti deterministici||DFA]] _M_ definisco una famiglia di relazioni:
+		- $$\sim_{i}\subseteq Q \times Q$$ 
+	- $$\sim_{0}=F \times F \cup (Q-F)\times(Q-F)$$
+	- ## OSS:
+		- 1) la relazione $Id\{(q,q)|q\in Q\}$ è tale che $Id\subseteq \sim_{i}\ \ \ \forall i$ 
+			- uno stato è sempre equivalente a se stesso
+		- 2) $\sim_{i}$ è una relazione di equivalenza $\forall i$ 
+		- 3)$\sim_{i+1}\subseteq \sim_{i}$ 
+			- ad ogni passo rimuovo qualche coppia 
+		- 4) $$\exists k : \sim_{k}=\sim_{k+1}\implies\forall j>k  \sim_{k}=\sim_{j}$$
+		- 5) $k$ esiste ed è minore di 
+			- $$|\sim_{0}|=|F \times F|+|(Q-F) \times (Q-F)|=$$
+			- $$=|F|^{2}+|(Q-F)|^{2}$$
+- # ES:
+	- ![[Pasted image 20241011141354.png]]
+	- Gli stati equivalenti risultano essere:
+		- $A,B$ 
+		- $F$
+		- $C,D,E$ 
+	- e l'automa minimo risultante da questa considerazione è:
+		- ![[Pasted image 20241011142014.png]]
+		- col linguaggio $L= 0^{*}10^{*}$
+- # Identità:
+	- ![[Pasted image 20241011142131.png]]
+	- ogni stato è equivalente solo a se stesso.
+- # Algoritmo di Tabella a Scala:
+	- tabella con coppie che non si ripetono
+	- _prima della prima iterazione_ metto il segno $x_{0}$ per segnalare che la coppia è distinta 
+		- (_finale, non finale_) oppure (_nonfinale, finale_) 
+	- _alla prima iterazione_, metto il segno $x_{1}$ per distinguere le coppie $(q_{1},q_{2})$ non ancora marcate che per qualche $a\in \Sigma$ ha:
+		- $$(\delta(q_{1},a), \delta(q_{2},a))$$
+		- già marcata.
+	- _alla seconda iterazione_ metto la marca $x_{2}$ per...
+	- e così via finche si riesce ad aggiungere un simbolo $x_{i}$ nella tabella.
+	- ## ES:
+		- ![[Pasted image 20241011144321.png]]
+		- e l'automa risultante è:
+			- ![[Pasted image 20241011144417.png]]
+- # Teorema:
+	- dato un [[Automi finiti deterministici||DFA]] $M=(\Sigma, Q, \delta, q_{0}, F)$
+	- l'algoritmo di riempimento della tabella a Scala termina. 
+	- (Due stati $p$ e $q$ sono indistinguibili) $\iff$ (la casella $(p,q)$ o $(q,p)$ è marcata) e quindi sono equivalenti sse la casella non è marcata 
+	- ## Dim:
+		- Termina sempre perché:
+			-  $$\exists k: \sim_{k}=\sim$$
+			- e quindi l'algoritmo iterativo termina entro $k$ cicli.
+		- $\implies$ )
+			- suppongo che $p$ e $q$ sono indistinguibili, allora:
+				-  $$\exists x \in \Sigma^{*}: \hat{\delta}(p,x)\in F \wedge \hat{\delta}(q,x)\notin F$$
+				- o viceversa
+			- se prendo $k=|x|$ allora di sicuro $(p,q)\notin \sim_{k}$ ovvero $(p,q)$ viene marcata entro il ciclo $k$
+		- $\impliedby$)
+			- suppongo che $(p,q)$ sia marcata allora sicuramente sono distinguibili:
+			- basta quindi prendere la catena di coppie/simboli che portano ad una coppia _non presente_ in $\sim_{0}$ ad esempio:
+				-  $$(p,q)\to^{a}(p',q')\to^{b}(p'',q'')$$
+				- ciò implica che $ab$ è la stringa che distingue $p$ e $q$ 
+- # ES:
+	- ![[Pasted image 20241011155626.png]]
+	- 4) per ricavare la [[Grammatiche regolari]] del [[Automi finiti deterministici||DFA]] minimo:
+		- $A\to aA|a|bC|b|\epsilon$ è compresa $\epsilon$ perché lo stato $A$ è anche stato Terminale.
+		- $C\to bC|b|aD$
+		- $D\to aD|bD$ 

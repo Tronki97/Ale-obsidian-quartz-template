@@ -1,0 +1,119 @@
+---
+tags: []
+aliases:
+  - paginazione a richiesta
+  - gestione page fault
+  - stringa di riferimenti
+  - riferimenti
+  - belady
+  - algoritmi a stack
+  - LRU
+  - second chance
+data: "`2025-04-06 20:03`"
+---
+- # Def:
+	- Permette di eseguire dei processi che non sono completamente caricati in memoria
+	- Permette quindi a dei programmi [[Concorrenza||concorrenti]], che hanno necessità di una quantità di memoria maggiore di quella disponibile, di eseguirsi.
+	- Limita le prestazioni del sistema, ma permette di avere un sistema più flessibile.
+		- Load:
+		- Store: dato l’indirizzo di un dato ricorda il dato all’indirizzo specificato.
+- # ES:
+	- L’area dedicata alla gestione degli errori (si spera) viene usata poche volte.
+	- Strutture dati con una dimensione fissata dall’inizio che però raramente utilizzano tutta
+- # Implementazione:
+	- Ogni [[Concorrenza#^68dcd8|processo]] ha accesso ad uno _spazio di indirizzamento virtuale_ 
+	- Gli indirizzi virtuali logici possono essere mappati su indirizzi fisici della memoria principale oppure su una memoria secondaria.
+		- Se si accede alla memoria secondaria, i dati sono trasferiti nella memoria centrale e se quella memoria è piena dei dati vengono trasferiti in una memoria secondaria e completare il trasferimento.
+- # Paginazione a richiesta:
+	- Usiamo la paginazione, solo che nella _tabella delle pagine_ viene aggiunto un campo che indica l’indirizzo nella memoria secondaria e un bit che indica se la pagina è disponibile nella memoria centrale.
+	- Se si tenta di accedere ad una pagina che manca nella memoria centrale, il processore genera una [[Trap e interrupt#^ca5cf6|trap]] (_page fault_) e il sistema operativo con il _pager_ si occupa di trasferire la pagina in memoria centrale.
+	- ## Algoritmo:
+		- Si individua la pagina in memoria secondaria, si individua un frame libero, e, se non esiste:
+			- Richiama l'algoritmo di rimpiazzamento utilizzato.
+			- Aggiorna la _page table_ (invalidando la vittima) e la _frame table_ (con frame libero).
+			- Se la pagina "vittima" è stata variata la scrive su disco.
+		- Aggiorna di nuovo la _frame table_ col frame occupato
+		- Legge la pagina, che ha provocato il fault, dal disco.
+		- Aggiorna la _page table_(caricato il [[Gestione della memoria#^63aaa2|TLB]])
+		- Infine riattiva il processo.
+- ![[Pasted image 20250321102727.png]]
+- # Pager/swapper:
+	- ### Swap:
+		- Prendere l’intera memoria del processo sospenderlo e poi mettere la memoria del processo in quella secondaria e riattivare poi il processo.
+		- _swap-in_: quando si porta la memoria secondaria in quella principale.
+		- _swap-out_: quando si porta la memoria principale in quella secondaria.
+	- Nella paginazione su richiesta si fa _swap_ solo delle pagine che servono.
+- # Gestione page fault:
+	- Quando non ci sono frame liberi serve liberarne uno e si sceglie di eliminare la pagina _meno utile_ usando un algoritmo di rimpiazzamento.
+	- Suppongo che il codice nella pagina 0 faccia riferimento alla 1, ma la [[Gestione della memoria#^b3b567|MMU]] si accorge che la pagina 1 non è nella memoria principale, si genera un "page fault" catturato dal S.O. 
+		- ![[Pasted image 20250611132519.png|600]]
+	- Il S.O poi cerca in [[Memoria secondaria]] la pagina da caricare che poi la caricherà in memoria principale con il suo contenuto.
+		- ![[Pasted image 20250611132814.png|650]]
+	- Infine:
+		- ![[Pasted image 20250611132409.png|700]]
+	- ## Stringa di riferimenti:
+		- Una sequenza di riferimenti in memoria che poi sono tutti i numeri di pagina.
+		- Si può generare esaminando il funzionamento dei programmi reali o con un generatore random di numeri.
+	- ## Anomalia di Belady:
+		- Non è detto che aumentando il numero di frame allora diminuisca il numero di page fault.
+	- ## Algoritmi di sostituzione/rimpiazzamento:
+		- Si invalida la pagina da togliere facendo in modo che non venga più considerata in memoria e se un processo tenta di accedervi è come se non la vedesse.
+		- Poi si aggiorna la _frame table_ con il frame libero.
+		- L’algoritmo minimizza il numero di _page fault_ trovando quindi la pagina meno utile in questo momento.
+		- ### Valutazione:
+			- Gli algoritmi vengono valutati esaminando come si comportano quando applicati ad una _stringa di riferimenti_ in memoria.
+		- ### algoritmi a Stack:
+			- Data la stringa di riferimenti $s$ 
+			- Indico con $S_{t}(s,A,m)$ l’insieme delle pagine nella memoria centrale al tempo $t$ dell’algoritmo $A$ data una memoria di  $m$ frame
+			- Quindi un algoritmo è detto _a stack_ se per ogni stringa $s$ e tempo $t$ si ha che:
+				- $$S_{t}(s,A,m)\subseteq S_{t}(s,A,m+1)$$
+			- #### Teorema:
+				- Se si ha un algoritmo a stack non possono esserci casi della _anomalia di Belady_
+			- #### Dim:
+				- Si prende un $S_{t}(s,A,m)$ e $S_{t}(s,A,m+1)$ se caricassi un altra pagina $p$ ci sarebbe page fault?
+					- Se  $p$ appartiene al primo allora anche al secondo quindi non c’è page fault in entrambi.
+					- Se $p$ appartiene al secondo e non al primo allora c’è page fault in entrambi.
+					- Se $p$ non appartiene a nessuno dei due allora non c’è page fault in entrambi.
+						- Quindi aumentando il numero di frame non si ha un aumento di _page fault_.
+		- ### FIFO:
+			- Butta via la pagina che è stata caricata per prima in memoria.
+			- Però il fatto che una pagina sia stata caricata per prima _non significa che non sarà più usata_.
+			- ![[Pasted image 20250321111403.png|700]]
+		- ### MIN:
+			- Si sceglie la pagina che verrà acceduta nel futuro più lontano.
+			- Questo algoritmo garantisce il minimo numero di page fault.
+			- ![[Pasted image 20250321111935.png|650]]
+		- ### LRU (least recently used): ^356dee
+			- Si sceglie la pagina che è stata acceduta meno recentemente.
+			- è basato sul presupposto che la distanza tra due riferimenti successivi alla stessa pagina non vari eccessivamente.
+			- ![[Pasted image 20250321112249.png|650]]
+			- Per fare si che funzioni l’MMU dovrebbe tenere traccia di tutti i riferimenti fatti ad ogni pagina usando un contatore che viene incrementato ad ogni accesso in memoria. 
+			- Questo però è molto costoso perché si necessiterebbe di controllare l’overflow del contatore o averne uno molto alto. 
+			- #### Approssimare l’algoritmo
+				- ##### Additional-Reference-Bit-Algorithm
+					- Per approssimare questo algoritmo si tiene conto se una pagina è stata acceduta impostandone i _reference bit_ a 1 e poi periodicamente si controlla quali siano state accedute e si resetta il bit.
+					- ![[Pasted image 20250405183343.png|650]]
+				- ##### Second chance algorithm:
+					- Corrisponde ad un caso particolare dell’algoritmo precedente dove la dimensione della “storia” è 1
+					- Le pagine in memoria vengono gestite come una lista circolare,
+					- Partendo dalla posizione successiva all’ultima pagina caricata, la lista viene scandita secondo la seguente regola:
+						- Se la pagina _è stata acceduta_ il _reference bit_ viene messo a 0  
+						- Altrimenti la pagina selezionata diventa la “vittima”.
+					- ![[Pasted image 20250405184019.png|700]]
+			- #### Teorema: 
+				- L’algoritmo _LRU_ è a stack.
+			- #### Dim:
+				- Ogni riferimento alla stringa dei riferimenti sposta la pagina in cima allo stack, facendo scorrere le successive
+					- ![[Pasted image 20250405182355.png|300]]
+				- Poi l’algoritmo tiene in memoria le prime $m$ pagine dello stack
+				- Quindi l’algoritmo _è a stack_ siccome l’insieme delle $m$ pagine in cima è un sottoinsieme delle $m+1$ pagine in cima allo stack.
+		- ### LFU (least frequently used):
+			- Mantengo un contatore del numero di accessi ad una pagina 
+			- La frequenza è il valore del contatore diviso il tempo di permanenza in memoria
+			- La pagina con valore minore viene eliminata.
+- ## Allocazione:
+	- Un algoritmo di allocazione sceglie quanti frame assegnare ad ogni singolo [[Concorrenza#^68dcd8|processo]]
+	- _locale_: ogni processo ha un insieme proprio di frame è ciò è poco flessibile.
+	- _globale_: tutti i processi possono allocare tutti i frame presenti nel sistema, può portare a _trashing_.
+- # Link Utili:
+	- 

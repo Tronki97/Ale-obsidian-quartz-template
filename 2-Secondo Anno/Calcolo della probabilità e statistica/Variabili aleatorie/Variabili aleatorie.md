@@ -1,0 +1,219 @@
+---
+tags: []
+aliases:
+  - V.A
+  - variabili aleatorie costanti
+  - variabili aleatorie indicatrici
+  - variabili aleatorie di bernoulli
+  - V.A discreta
+  - variabile aleatoria discreta
+  - V.A indicatrici
+  - V.A costanti
+  - V.A di bernoulli
+data: "`2025-03-11 13:23`"
+---
+- # Variabili aleatorie (V.A.):
+	- Una quantità numerica aleatoria che mi va a dire se un evento è vero o no.
+	- Espressa come un’affermazione.
+	- ## Affermazione:
+		- è un’_affermazione_ che riguarda il risultato dell’[[Modello probabilistico di un esperimento aleatorio#^58d2bd|esperimento aleatorio]] ed identifica un solo numero una volta noto l’[[Modello probabilistico di un esperimento aleatorio#^5ebd00|esito]] quindi si risponde alla domanda: _quanto vale?_
+		- Spesso si usano le ultime lettere dell’alfabeto 
+		- ### ES:
+			- Lancio 2 dadi. Chiamo X un’affermazione 
+				- $X$ = “la somma dei dadi”
+				- $\{X=3\}$ è un evento 
+	- ## In termini matematici:
+		- Una V.A è rappresentata come una funzione $X: \Omega \to \mathbb{R}$
+		- Qualunque funzione $\Omega\to \mathbb{R}$ è una V.A. 
+		- ### ES:
+			- Lancio di 2 dadi
+			- $X=$ “somma dei risultati” $X: \Omega\to \mathbb{R}$
+			- $Y=$ “prodotto dei risultati” $Y: \Omega\to \mathbb{R}$
+			- $Z=$ “risultato primo lancio” $Z: \Omega\to \mathbb{R}$
+			- $\Omega= DR_{6,2}=\{(1,1),(1,2),...,(6,6)\}=\{(w_{1},w_{2}), w_{i}\in \{1,...,6\}\}$
+			- $$X((w_{1},w_{2}))=w_{1}+w_{2}$$
+			- $$Y((w_{1},w_{2}))=w_{1}*w_{2}$$
+			- $$Z((w_{1},w_{2}))=w_{1}$$
+- # Variabili aleatorie costanti:
+	- $a\in \mathbb{R}$ fissato
+	- $X(w)=a\ \ \ \forall w\in \Omega$  V.A. costante
+	- $X$ è una V.A quasi certamente (_q.c_) costante se $\mathbb{P}(X(w)=a)=1$
+	- ## ES: 
+		- Lancio un dado 
+		- $\Omega=\mathbb{R}$
+		- $$\mathbb{P}: \begin{cases} \mathbb{P}(\{1\})=...=\mathbb{P}(\{6\})=\frac{1}{6} \\ \mathbb{P}(\{n\})=0 & \forall n\ne \{1,...,6\}\end{cases}$$
+		- Fisso  $a\in \mathbb{R}$
+		- Costruisco $X$ V.A $(X: \Omega \to \mathbb{R}): \mathbb{P}(X=a)=1$
+		- $$X(w)=\begin{cases} a &w\in \{1,...,6\}\\ w & altrimenti\end{cases}$$
+		- $$\mathbb{P}(X=a)=\mathbb{P}(\{w\in \Omega: X(w)=a\})=\mathbb{P}(\{1,...,6\})=1$$
+- # V.A indicatrici (o di Bernoulli): ^a7a7e4
+	- Fisso un evento $A\subset \Omega$ costruisco una variabile aleatoria.
+	- $$X(w)=\mathbb{1}_{A}(w):=\begin{cases} 1 &w\in A \\ 0 &altriementi\end{cases}$$
+	- Tutta l’info dell’evento $A$ è contenuta in questa variabile aleatoria indicatrice.
+	- Da una variabile aleatoria è possibile risalire ad un evento???
+		- Visto che le V.A sono la generalizzazione del concetto di [[Modello probabilistico di un esperimento aleatorio#^18c7b9|evento]] 
+		- Eventi associati alle V.A 
+			- $\sigma(X)=$ eventi generati o associati alla V.A $X$
+			- Si dice che $E \subset \Omega$ è un evento generato da $X$ se $\exists B \subset \mathbb{R}:$
+				- $$E=\{w\subseteq \Omega: X(w)\in B\}=\{X\in B\}=\{X^{-1}(B)\}$$
+- ### ES:
+	- $X=$ “risultato della somma dei lanci”
+	- $A=$ “la somma è 3” = $\{X\in \{3\}\}$
+	- $B=$ “la somma è $\le 5$”= $\{X\in (- \infty, 5]\}$
+	- #### OSS:
+		- $\Omega = \{X\in \mathbb{R}\}$
+		- $\emptyset = \{X\in \emptyset\}$ 
+- ### ES:
+	- $X$ V.A. costante; $X(w)=a\ \ \forall w\in \Omega$   $a\in \mathbb{R}$ fissato.
+	- $\sigma(X)?$   $E=\{X\in B\}$ elemento di $\sigma(X), \forall B\subset \mathbb{R}$
+	- Sia $B\subset \mathbb{R}$ fissato.
+	- $$\Omega \supset \{X\in B\} =\{w\in \Omega : X(w)\in B\}=\begin{cases}\Omega&a\in B\\ \emptyset& altrimenti\end{cases}$$
+	- $$\sigma(X)=\{\Omega, \emptyset\}$$
+	-  X V.A indicatrice:
+	- $\sigma(X)?$
+	- Fisso $$\{X\in B\}=\{w\in \Omega:X(w)\in B\}=\begin{cases}A&1\in B,0\notin B\\ A^{C}&1\notin B,0\in B\\ \Omega&1\in B,0\in B\\ \emptyset&1\notin B,0\notin B\end{cases}$$
+	- Quindi $\sigma(X)=\{A,A^{C},\Omega, \emptyset\}$
+	- $$\mathbb{P}_{X}(B)=\mathbb{P}(X\in B)=\begin{cases}\mathbb{P}(A)&1\in B,0\notin B\\ 1-\mathbb{P}(A)&1\notin B,0\in B\\ 1&1\in B,0\in B\\ 0&1\notin B,0\notin B\end{cases}=$$
+	- $$=\mathbb{P}(A)\delta_{1}(B)+(1-\mathbb{P}(A))\delta_{0}(B)$$
+	- Ovvero: $$\mathbb{P}_{X}(.)=\mathbb{P}(A)\delta_{1}(.)+(1-\mathbb{P}(A))\delta_{0}(.)$$
+		- _Questa è chiamata distribuzione o legge di Bernoulli_
+	- ### OSS:
+		- $(\Omega, \mathbb{P}), X:\Omega\to \mathbb{R}$ V.A
+		- 1) $\mathbb{P}(X\le x)=\mathbb{P}(X<x)+\mathbb{P}(X=x), \ x\in \mathbb{R}$
+		- 2) $\mathbb{P}(X\le x)=1-\mathbb{P}(X>x), \ x\in \mathbb{R}$
+	- ### Dim:
+		- 1) $\{X\le x\}=\{X< x\}$
+- # V.A discreta: ^62da4f
+	- Variabili aleatorie che assumono un numero finito numerabile di valori.
+	- L’immagine è finita.
+	- $X: \Omega \to \mathbb{R}$ è una _V.A discreta_ se:
+		- $\Omega$ discreto:  $Im(X)$ finita numerabile.
+		- $\exists S_{X}\subset Im(X), S_{X}$ finito o infinito numerabile, tale che: $\mathbb{P}(X\in S_{x})=1$ quasi certamente ed è detto _insieme di supporto_ e rappresenta tutti i valori possibili della V.A con $\mathbb{P}(.)>0=\{x\in \mathbb{R}: \mathbb{P}(X=x)>0\}$.
+	- ## ES:
+		- $$X(w)=\begin{cases} a &w\in \{1,...,6\}\\ w & altrimenti\end{cases}$$
+			- $\Omega=\mathbb{R}$, $\mathbb{P}: \begin{cases} \mathbb{P}(\{1\})=...=\mathbb{P}(\{6\})=\frac{1}{6} \\ \mathbb{P}(\{n\})=0 & \forall n\ne \{1,...,6\}\end{cases}$
+		- Cerco  $S_{X}\subset Im(X)$ che risulta essere $\{a\}$ 
+		- $\{X\in S_{X}\}=\{1,2,3,4,5,6\}$ evento quasi certo 
+	- ## Def:
+		- $(\Omega, \mathbb{P})$
+		- La funzione :
+			- $p_{X}: \mathbb{R}\to [0,1]$ M
+			- $x\to p_{X}(x):=\mathbb{P}(X=x)$
+		- Si chiama _funzione di distribuzione di probabilità di $X$ _
+	- ## Teorema:
+		- Le seguenti affermazioni sono equivalenti:
+		- 1) $X$ è una V.A discreta
+		- 2) $F_{X}$ è _costante a tratti_: $(\forall x\in S_{X},\ p(x)=F_{X}(x)-F_{X}(x^{-}))$
+			- Dove $p(x)=\mathbb{P}(X=x)$ e $F_{X}(x^{-})=\lim_{y=x^-}F(y)$
+		- 3) $\mathbb{P}(X\in B)=\sum\limits_{x\in S_{x}\cap B} p_{X}(x)=1$
+		- ### OSS:
+			- Dal punto 2 si capisce come l’ampiezza degli scalini di $F_{X}$ sia la probabilità di quell’ [[Modello probabilistico di un esperimento aleatorio#^18c7b9|evento]] 
+			- ![[funzione di ripartizione.excalidraw]]
+			- Il salto $J$ è: $$F_{X}(x)-F_{X}(x^{-})=\mathbb{P}(X\le x)- \lim_{y=x_{n}^{-}}F_{X}(y)=\mathbb{P}(X\le x_{n})-\lim_{y=x_{n}^{-}}\mathbb{P}(X\le y)=$$
+			- $$=\mathbb{P}(X\le x_{n})-\mathbb{P}(X< x_{n})=\mathbb{P}(X=x)$$
+		- ### ES: ^6daafd
+			- $\Omega= \{1,..,6\}$ e $\mathbb{P}(\{w\})=\frac{1}{|\Omega|}$
+			- $$X(w)=\begin{cases} 1 & w\in \{2,4,6\}\\ -1 & w\in \{1,3,5\}\end{cases}$$
+				- è discreta perché può assumere 2 valori.
+			- Si costruisce la tabella della densità di probabilità:
+				- $$\begin{array}{|c|c|c|c|c|c|c|} \hline x & -1 & 1\\ \hline \mathbb{P}(X=x) & \frac{1}{2} & \frac{1}{2} \\ \hline \end{array}$$
+			- E la [[Funzione di ripartizione]] facendone il grafico.
+				- ![[funzione esempio.excalidraw|900]]
+				- Quindi $F_{X}(1)=F_{X}(X\le 1)=F_{X}(\Omega)=1$
+				- Se prendessi un punto $-1<y<1$ avrei $F_{X}(y)=\mathbb{P}(X\le y)=F_{X}(X\le 1)=F_{X}(-1)=\frac{1}{2}$.
+- # V.A continue:
+	- Variabile aleatoria: $X: \Omega \to \mathbb{R}$.
+	- ## ES:
+		- $X=$ “tempo di vita di un componente”.
+			- Suppongo che $X$ assuma valori in $[0, \infty)$
+			- E ciò impone che $p_{X}(x)=0 \ \ \ \ \forall x$ 
+		- Ora serve costruire la distribuzione di $X$:
+			- Lo si fa mediante una densità: $f_{X}$
+			- Si definiscono le probabilità degli intervalli invece che delle probabilità di valori.
+				- $X\in [a,b]$ con $a<b \in \mathbb{R}$
+			- $$\mathbb{P}(a\le X\le b)=\int_{a}^{b} f_{X}(x) \ dx$$
+				- Con $f_{X}$ tale che:
+					- 1) $f_{X}(x)\ge 0 \ \ \ \forall x\in \mathbb{R}$ 
+					- 2) $\int_{-\infty}^{+\infty} f_{X}(x) \ dx=1$ 
+	- ## ES:
+		- $$f_{X}=\begin{cases}0 &x<0 \\ e^{-x} & x\ge 0\end{cases}$$
+		- ![[Pasted image 20250527200921.png|700]]
+		- $$\int_{-\infty}^{\infty} f_{X}(x)\  dx=\int_{0}^{\infty}e^{-x}\ dx= $$
+			- Ciò grazie alle proprietà degli [[Integrali]] 
+		- $$= \lim_{k\to \infty} \int _{0}^{k}e^{-x} \ dx=\lim_{k\to \infty} [-e^{-x}]_{0}^{k}=$$
+		- $$=\lim_{k\to \infty} (-e^{-k}+e^{0})=0+1=1$$
+	- ## Formalizzazione;
+		- Una $f: \mathbb{R}\to \mathbb{R}$ si dice _densità di probabilità_ se:
+			- 1) $f(x)\ge 0 \ \ \ \forall x\in \mathbb{R}$
+			- 2) $\int_{-\infty}^{+\infty} f(x) \ dx=1$
+	- ## OSS:
+		- La densità non è necessariamente $\le 1$ 
+			- Per esempio si può prendere la funzione:
+				- $$f_{X}=\begin{cases}0 &x<0 \\ \lambda e^{-\lambda x} & x\ge 0\end{cases}$$
+					- Con $\lambda>0$
+				- Se si facesse l’integrale risulterebbe lo stesso uguale ad 1
+		- $f_{X}$ può anche essere illimitata.
+	- ## Def:
+		- Sia $(\Omega, \mathbb{P})$ uno spazio di probabilità e $X$ una [[Variabili aleatorie|V.A]] allora si dice che:
+			- $X$ è _continua_ se 
+				- $$\exists f_{X}: \mathbb{P}(a\le X\le b)=\int_{a}^{b}f_{X}(x)\ dx$$
+		- E appunto si dice continua perché assume valori su un insieme continuo e la sua funzione di ripartizione è definita continua _non a scalini_.
+	- ## Richiamo:
+		- $F_{X}$ è sempre continua a dx.
+		- $F_{X}(x)=F_{X}(x^{-})=p_{X}(x)=0$ e ciò vuol dire che $F(x)$ è continua se $X$ è una V.A continua.
+	- ## OSS:
+		- Se $a=b$ vuol dire che $\mathbb{P}(X=a)$ quindi $\int_{a}^{a}f_{X}=0$
+		- $$F_{X}(x):= \mathbb{P}(X\le x)= \lim_{a\to-\infty} \mathbb{P}(a\le X\le b)= \lim_{a\to -\infty}\int_{a}^{b} f_{X}(y)\  dy=$$
+		- $$=\int_{- \infty}^{b} f_{X}(y)\ dy$$
+	- ## Casi particolari:
+		- $\mathbb{P}(a< X \le b)= \mathbb{P}(a\le X \le b)=\int_{a}^{b}f_{X}(x)=F_{X}(b)-F_{X}(a)$ (_sono compresi tutti gli intervalli di inclusione_) siccome la funzione è continua in tutti i punti quindi non cambierebbe includere o meno $a$ o $b$ nell’intervallo di integrazione.
+		- $\mathbb{P}(X\le x)=\mathbb{P}(X<x)=F_{X}(x)$ e di conseguenza:
+			- $$\mathbb{P}(X\ge x)=1-\mathbb{P}(X\le x)=1-F_{X}(x)=1-\int_{-\infty}^{x}f_{X}(x)=$$
+			- $$=\int_{-\infty}^{\infty}f_{X}(x)-\int_{-\infty}^{x}f_{X}(x)=\int_{x}^{\infty}f_{X}(x)$$
+	- ## ES:
+		- $$B=[-1,0]\cup (2,3]\cup [5,\infty)$$
+			- Dove $B\subset \mathbb{R}$
+		- $$\mathbb{P}(X\in B)=\int_{-1}^{0} f_{X}(x)+\int_{2}^{3} f_{X}(x)+\int_{5}^{\infty} f_{X}(x) \ \ dx$$
+	- ## ES:
+		- $$f(x)=\begin{cases}1& x\in [0,1] \\ 0& altrimenti\end{cases}$$
+		- ![[Pasted image 20250527201644.png|550]]
+		- Definisco poi una funzione $\tilde{f}(x)$ come:
+			- $$\tilde{f}(x)=\begin{cases}f(x) & x\ne \frac{1}{2 } \\ 0 & x=\frac{1}{2 } \end{cases}$$
+			- Il grafico è uguale a quello precedente tranne nel punto $x=\frac{1}{2 }$ dove sarà uguale a $0$
+		- $$\int_{-\infty}^{\infty} \tilde{f}(x)= \int_{-\infty}^{\frac{1}{2}} \tilde{f}(x)\ + \int_{\frac{1}{2 }}^{\infty} \tilde{f}(x)=1$$
+		- Da ciò risulta che avere queste due densità diverse non cambia il risultato.
+		- Se prendessi per esempio: $0\le a< \frac{1}{2}<b\le 1$
+			- $$\int_{a}^{b} f(x)=\int_{a}^{b} \tilde{f}(x)= \int_{a}^{\frac{1}{2}}  \tilde{f}(x) dx + \int^{b}_{\frac{1}{2}}  \tilde{f}(x) dx= \left( \frac{1}{2} -a\right)+ \left( b- \frac{1}{2} \right)=b-a$$
+	- ## OSS:
+		- Data una V.A continua _la sua densità non è unica_, in particolare:
+			- Se $g$ è una funzione uguale ad $f_{X}$ a meno di un insieme finito di valori, allora anche $g$ è una densità
+	- ## ES:
+		- Si riprende l’esempio inziale di $X=$ tempo di vita di un componente.
+		- $$f_{X}(x)=\begin{cases}0 &x<0 \\ e^{-x} & x\ge 0\end{cases}$$
+		- ![[Pasted image 20250527202144.png]]
+		- $$x\le0: F_{X}(x)=\int_{-\infty}^{x}f_{X}(y)\ dy=0$$
+		- $$x>0: F_{X}(x)=\int_{-\infty}^{x}f_{X}(y)\ dy= \int_{-\infty}^{0}f_{X}(y)\ dy+\int_{0}^{x}f_{X}(y)\ dy=$$
+		- $$=\int_{0}^{x}e^{-y}\ dy=[-e^{-x}]_{0}^{x}=1-e^{-x}$$
+		- Risulta quindi che:
+			- $$F_{X}(x)=\begin{cases}0 & x\le 0\\ 1-e^{-x}& x>0\end{cases}$$
+		- ### Variante:
+			- Far si che la componente possa avere un difetto di fabbrica con $\mathbb{P}>0$
+				- $$p_{X}(x)=\mathbb{P}(X=0)=p>0$$
+			- $$\mathbb{P}(X\in [a,b])=\begin{cases} \int_{a}^{b} f_{X}(x)\ dx &0\notin [a,b]\\ \int_{a}^{b} f_{X}(x)\ dx  + p& 0\in [a,b]\end{cases}$$
+			- Per far si che questa cosa rispetti le proprietà ho la necessità che 
+				- $$\int_{-\infty}^{\infty} f_{X}(x)\ dx + p=1$$
+				- Quindi: $$\int_{-\infty}^{\infty} f_{X}(x)\ dx\ne 1$$
+			- Si potrebbe quindi porre:
+				- $$f_{X}(x)=\begin{cases}0 & x<0 \\(1-p)e^{-x}  & x\ge 0\end{cases}$$
+				- Se $x<0: F_{X}(x)=\mathbb{P}(X\le 1)=\int_{-\infty}^{x}f_{X}(x)\ dx=0$
+				- Se  $x=0: F_{X}(0)=\mathbb{P}(X\le 0)=\mathbb{P}(X=0)+\mathbb{P}(X\le 0)=p$
+					- Per l’ipotesi iniziale.
+				- Se $x>0$
+					- $$x>0: F_{X}(0)=\mathbb{P}(X\le x)=\mathbb{P}(X<0)+\mathbb{P}(0\le X\le x)=p+\int_{0}^{x}=$$
+					- $$=p+(1-p)\int_{0}^{x}e^{-y}=$$
+					- $$=p+(1-p)*(1-e^{-x})$$
+					- ![[Pasted image 20250527202504.png|600]]
+				- Quindi la [[Funzione di ripartizione]] risulta essere:
+					- $$F_{X}(x)=\begin{cases}0 & x<0  \\ p+(1-p)(1-e^{-x}) & x\ge0\end{cases}$$
+- # Link Utili: 
+	- 

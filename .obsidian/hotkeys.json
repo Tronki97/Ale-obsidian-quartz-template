@@ -1,0 +1,72 @@
+{
+  "obsidian-autocomplete-plugin:autocomplete-toggle": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "S"
+    }
+  ],
+  "various-complements:show-suggestions": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "A"
+    }
+  ],
+  "editor:toggle-checklist-status": [],
+  "obsidian-git:commit": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "L"
+    }
+  ],
+  "obsidian-completr:completr-fake-enter": [],
+  "obsidian-completr:completr-fake-arrow-up": [],
+  "obsidian-completr:completr-fake-arrow-down": [],
+  "obsidian-excalidraw-plugin:insert-link-to-element": [],
+  "obsidian-excalidraw-plugin:save": [],
+  "editor:open-link-in-new-leaf": [],
+  "quick-latex:addInlineMath": [],
+  "obsidian-git:push2": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "P"
+    }
+  ],
+  "templater-obsidian:create-new-note-from-template": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "n"
+    },
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "M"
+    }
+  ],
+  "obsidian-completr:completr-bypass-tab-key": [],
+  "workspace:next-tab": [],
+  "templater-obsidian:template/Modello appunti.md": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod",
+        "Shift"
+      ],
+      "key": "M"
+    }
+  ],
+  "easy-typing-obsidian:easy-typing-format-switch": []
+}

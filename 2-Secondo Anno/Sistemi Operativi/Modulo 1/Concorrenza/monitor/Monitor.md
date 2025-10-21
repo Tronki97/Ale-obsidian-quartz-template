@@ -1,0 +1,52 @@
+---
+tags: []
+aliases:
+  - wait
+  - signal
+data: "`2024-11-22 10:25`"
+---
+- # Def:
+	- forniscono un approccio più strutturato alla [[Concorrenza]]
+	- hanno dati locali, accessibili solo alle procedure del modulo.
+	- si può entrare nel monitor solo con le sue procedure 
+	- hanno delle variabili di condizione:
+		- segnalano degli eventi 
+		- permettono di mettere in attesa un processo
+		- permettono di risvegliare un processo
+	- solo un processo può essere messo dentro ad un monitor
+- # Sintassi:
+	- ![[Pasted image 20250118155959.png]]
+- # Variabili  di condizione:
+	- definite dentro al _monitor_.
+		- `condition c`
+	- ## metodi:
+		- che vengono eseguiti sulle condizioni `c`
+		- `c.wait()`  ^cac4f7
+			- mette in attesa il processo che la chiama in una coda di attesa di condizione $c$ 
+		- `c.signal()`  ^d57dae
+			- risveglia un processo in attesa di quella condizione `c`
+			- il chiamante viene posto in attesa e risvegliato quando un processo risvegliato rilascia la sua [[Proprietà di un programma#^1acdf8|mutua esclusione]] 
+			- se nessun processo è in attesa della condizione $c$, la chiamata è ignorata.
+		- ### Differenze con i semafori:
+			- `signal()` non ha nessun effetto se non ci sono processi in attesa, invece `V` incrementa il semaforo memorizzando il verificarsi degli eventi.
+				- poi il processo risvegliato da `signal` viene eseguito per primo. 
+			- `wait()` mette il processo in attesa, mentre `P` decrementa il semaforo e blocca solo se il valore é $\le 0$. 
+- # politiche di signaling:
+	- ## SU (signal urgent):
+		- la politica usata all’esame
+		- il processo che esce dalla sezione critica risveglia il processo in attesa con la priorità più alta.
+- # Implementazione dei semafori:
+	- ![[Pasted image 20241122110719.png]]
+		- non c’è il problema del mutex e basta implementare la sincronia tra i vari processi.
+- # Implementazione [[Problemi classici di concorrenza|lettori e scrittori]]
+	- ![[Pasted image 20241122111804.png]]
+	- ![[Pasted image 20241122111911.png]]
+	- ![[Pasted image 20241122112314.png]]
+	- ![[Pasted image 20241122112328.png]]
+	- tuttavia si rischia la [[Proprietà di un programma#^054a32|starvation]], per rimuoverla:
+		- ![[Pasted image 20241122112847.png]]
+- # Considerazioni:
+	- visto che posso implementare i [[Semafori]] con i monitor e i [[Monitor con i semafori]], ciò implica che questi due paradigmi sono equipotenti, quindi ogni programma fatto con i semafori può essere fatto con i monitor e viceversa.
+	- 
+- # Link Utili:
+	- 

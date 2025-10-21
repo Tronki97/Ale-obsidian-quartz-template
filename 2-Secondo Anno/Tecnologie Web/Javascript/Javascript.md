@@ -1,0 +1,107 @@
+---
+tags: 
+aliases:
+  - spread
+  - falsy
+  - truthy
+  - closure
+  - date
+  - data
+data: "`2024-10-24 17:08`"
+---
+- # Sintassi:
+	- ## Attivazione:
+	- ## Strutture di controllo:
+	- ## ECMASCript: 
+		- linguaggio di script client-side
+	- ## Eseguire uno script:
+		- ### Client-side: eventi
+			- ogni elemento del documento ha eventi associati (click, hover...) e degli attributi _on+evento_ associati
+			- inserendo istruzioni nel valore dell'attributo si crea una _chiamata callback_
+			- Ci eventi particolari come: _load_ e _ready_
+			- Quando si aggiunge uno script ad un codice [[HTML]] e bisogna utilizzare degli eventi si dovrebbe mettere lo script in fondo al codice per permettere al DOM di essere generato.
+		- ### Server-side: routing
+			- questi servizi son associati a [[URI (Uniform Resource Identifier)|URI]]. Creare servizi diversi  e inserirli in file separati ciascuno con un URI proprio. Aprendo una connessione all'URI, viene invocato lo script associato ed eseguito il servizio.
+			- _Nodejs_ associa una funzione _javascript_ ad ogni tipo di URI aprendo una connessione verso esso, lo script centrale esegue la funzione corrispondente. 
+	- ## Eseguire uno script sul browser:
+		- _in maniera asincrona_:  appena lo script viene letto, in un tag `<script>` o in un file.
+			- Adatto per inizializzare oggetti e variabili da usare più tardi.
+		- _in maniera sincrona_: associando il codice ad un evento (tipo un click di un bottone). 
+		- _in maniera asincrona_: associando il codice ad completamento di un'operazione di rete.
+			- funzioni eseguite appena la richiesta [[HTTP]] asincrona è completata e i dati sono stati ricevuti.
+		- _in maniera asincrona_: associando il codice ad un _timeout_
+		- Durante l’esecuzione di uno script il _browser_ è bloccato e non reagisce agli input dell’utente. 
+			- per questo motivo gli script devono essere veloci per garantire l’interattività del sito. 
+- # Similitudini con altri linguaggi:
+	- ## Tipi di dati:  
+		- _numeri_.
+		- _booleani_
+		- _stringhe_
+		- _null e undefined_ vengono considerati come tipi di dato.
+		- _object_ che è strutturato e (_array_)
+	- ## Variabili:
+		- le variabili non sono tipate.
+		- ### Definirle:
+			- `var pippo='ciao';` definisce una variabile nello scope della funzione o del file in cui si trova.
+			- `let pippo='ciao';` definisce una variabile nello scope del blocco parentetico o della riga in cui si trova.
+			- `const pippo='ciao';` definisce una variabile non ulteriormente modificabile.
+	- ## Operatori:
+		- ` === ` è l’uguaglianza senza casting:
+			- `5==='5'` è falso siccome non avviene il casting di `5` in `'5'` 
+		- `!==` disuguaglianza senza casting:
+			- `5!=='5'` è vero siccome non avviene il casting di `5` in `'5'` 
+		- ### Operatore spread:
+			- `...` permette di spalmare i singoli elementi di un elemento strutturato:
+				- ![[Pasted image 20250206162041.png||700]]
+	- ## Dati strutturati:
+		- lista di coppie, `nome: "valore"` 
+		- `"valore"` può anche essere un altro dato strutturato.   
+- # Sintassi avanzata:
+	- ## Falsy e Truthy:
+		- _falsy_: valori che in caso vengano castati come booleani diventano falsi:
+			- _false, 0, null, undefined, ““, NaN_
+			- $NaN$ qualsiasi valore non rappresentabile come numero.
+		- _truthy_: è il complementare:
+			- _Qualsiasi stringa non vuota_, _numero_, _infinity_
+			- _Array vuoto_ $[]$
+			- _Oggetto vuoto_ $\{\}$ 
+		- questo concetto può essere usato come controllo negli `if`:
+			- `if(value) //agisci`
+			- per controllare che la variabile non sia vuota e nulla.
+	- ## funzioni come entità di prima classe:
+		- una funzione è un oggetto che ha un valore (_di tipo object_) e con metodo _exec_ 
+		- ### funzione anonima:
+			- funzione esterna che ha come parametro una funzione interna.
+		- ### funzione bind(obj, args):
+			- associa dei parametri a funzioni anonime o chiamate indirettamente:
+				- ![[Pasted image 20241111170432.png]]
+	- ## Date:
+		- Una data è un oggetto che esprime un giorno e un orario rappresentandolo come il numero di millisecondi trascorsi dalla mezzanotte del 1 gennaio 1970.
+		- ### costruttore:
+			- `new Date()` restituisce la data e l’ora corrente.
+			- `new Date(2019, 10, 1)` restituisce la data 1 novembre 2019.
+		- ### Metodi: 
+			- `getDay()`: 
+				- restituisce il giorno della settimana in formato numerico.
+			- `toDateString()`:
+				- restituisce la data in formato stringa.
+			- `toLocaleDateString()`:
+				- restituisce la data in formato stringa numerico (_Es. 06/02/2025_) in base alla lingua del browser.
+	- ## Classi e prototipi:
+		- Membri: spazi dati.
+		- metodi: funzioni che vanno ad agire sugli oggetti delle classi su cui sono definiti.
+		- 
+	- ## Closure e IIFE:
+		- closure è uno scope delle variabili strano, ma frequente e porta alla IIFE(Immediatly Invoked function expression)
+		- ### Closure:
+			- lo scope dato dalla funzione all’interno della quale la mia funzione viene creata.
+			- le variabili locali della funzione generatrice rimangono anche quando la funzione muore.
+			- 
+	- ## Gestione asincronicità:
+		- algoritmi complessi in cui varie parti non vengono eseguite sequenzialmente ma con interruzioni di durata non prevedibile, 
+		- [[Programmazione asincrona#^0fbeb4|promesse]]:
+		- funzioni di callback:
+		- async e await:
+		- 
+- # Link Utili:
+	- 
