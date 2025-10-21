@@ -31,7 +31,7 @@ data: "`2024-08-31 20:05`"
 			- e 
 				- $$f(v_{2})=\mu_{4}w_{1}+\mu_{5}w_{2}+\mu_{6}w_{3}$$
 			- Per cui $(f(v_{1}))_{\beta'}= (\mu_{1},\mu_{2},\mu_{3})$ e $(f(v_{2}))_{\beta'}= (\mu_{4},\mu_{5},\mu_{6})$ Quello che rimane da fare è calcolare $f(v)$ per arrivare a definire la matrice, per cui 
-				- $$\begin{array}  f(v)=\lambda_{1}f(v_{1})+\lambda_{2}f(v_{2})=\lambda_{1}\mu_{1} w_{1}+\lambda_{1}\mu_{2}w_{2}+\lambda_{1}\mu_{3}w_{3}+\\ \\ +\lambda_{2}\mu_{4}w_{1}+\lambda_{2}\mu_{5}w_{2}+\lambda_{2}\mu_{6}w_{3} \end{array}$$ 
+				- $$\begin{array}\  f(v)=\lambda_{1}f(v_{1})+\lambda_{2}f(v_{2})=\lambda_{1}\mu_{1} w_{1}+\lambda_{1}\mu_{2}w_{2}+\lambda_{1}\mu_{3}w_{3}+\\ \\ +\lambda_{2}\mu_{4}w_{1}+\lambda_{2}\mu_{5}w_{2}+\lambda_{2}\mu_{6}w_{3} \end{array}$$ 
 			- E se raccolgo $w_{1},w_{2},w_{3}$ ottengo: 
 				- $$f(v)=(\lambda_{1}\mu_{1}+\lambda_{2}\mu_{4})w_{1}+(\lambda_{1}\mu_{2}+\lambda_{2}\mu_{5})w_{2}+(\lambda_{1}\mu_{3}+\lambda_{2}\mu_{6})w_{3}$$
 			  - Ora le coordinate di $f(v)$ rispetto a  $\beta'$ saranno 

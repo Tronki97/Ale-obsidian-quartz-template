@@ -10,4 +10,4 @@ data: "`2024-08-31 20:05`"
 - # Proposizioni:
 	- $V_{\lambda}\le \mathbb{R}^{n}$
 		- si ha che $V_{\lambda}$ è [[Sottospazio vettoriale||sottospazio]] di $\mathbb{R}^{n}$ perché è un [[Kernel||nucleo]] infatti
-			- $$\begin{array} V_{\lambda}=v \in \mathbb{R}^{n}|f(v)=\lambda v=\\ \\  = v\in \mathbb{R}^{n}|Av-\lambda v=\underline{0}= \\ \\ =v\in \mathbb{R}^{n}|(A-\lambda I)v=\underline{0}= \\ \\ v\in \mathbb{R}^{n}|v\in ker(A-\lambda I)=ker(A-\lambda I)\end{array} $$
+			- $$\begin{array}\  V_{\lambda}=v \in \mathbb{R}^{n}|f(v)=\lambda v=\\ \\  = v\in \mathbb{R}^{n}|Av-\lambda v=\underline{0}= \\ \\ =v\in \mathbb{R}^{n}|(A-\lambda I)v=\underline{0}= \\ \\ v\in \mathbb{R}^{n}|v\in ker(A-\lambda I)=ker(A-\lambda I)\end{array} $$

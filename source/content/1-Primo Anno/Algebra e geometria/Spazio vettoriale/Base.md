@@ -27,7 +27,7 @@
 				- $$S=(3,1+x,x^{2},5x,4x,-2x^{3},x^{2}+10x-1)$$
 			- sapendo che $\mathbb{R}_{3}[x]=\langle{S}\rangle$, ci viene chiesto di trovare un sottoinsieme di S che è una base di $\mathbb{R}_{3}[x]$ 
 			- Dobbiamo cancellare da S i vettori dipendenti, fino ad arrivare ad avere un insieme di vettori linearmente indipendenti. Iterando l'algoritmo di cancellazione si arriva ad ottenere l'insieme $(3,x^{2},5x,-2x^{3})$. Per essere sicuro che siano linearmente indipendenti applico la definizione e risolvo l'equazione. 
-				- $$\begin{array} \lambda_{1}(3)+\lambda_{2}(x^{2})+\lambda_{3}(5x)+\lambda_{4}(-2x^{3})=\underline{0}\Longleftrightarrow \\ \\ \Longleftrightarrow \lambda_{1}=\lambda_{2}=\lambda_3=\lambda_{4}=0 \end{array} $$
+				- $$\begin{array}\  \lambda_{1}(3)+\lambda_{2}(x^{2})+\lambda_{3}(5x)+\lambda_{4}(-2x^{3})=\underline{0}\Longleftrightarrow \\ \\ \Longleftrightarrow \lambda_{1}=\lambda_{2}=\lambda_3=\lambda_{4}=0 \end{array} $$
 			- Il sistema associato risulta: 
 				- $$\begin{cases}3\lambda_{1}=0\\ \lambda_{2}(x^{2})=0\\ \lambda_{3}(5x)=0 \\ \lambda_{4}(-2x^{3})=0\end{cases}$$
 			- Che ha come unica soluzione: 

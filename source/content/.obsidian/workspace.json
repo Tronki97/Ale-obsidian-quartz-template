@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "bb41477017a3b5c4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-Primo Anno/Algebra e geometria/Teorema spettrale.md",
+                "file": "1-Primo Anno/Algoritmi e strutture dati/Modulo2/Tecniche algoritmiche/Divide-et-impera.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Teorema spettrale"
+              "title": "Divide-et-impera"
             }
           }
         ]
@@ -51,7 +51,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": true
               },
               "icon": "lucide-folder-closed",
               "title": "Esplora risorse"
@@ -253,8 +253,13 @@
       "obsidian-spaced-repetition:Rivisita schede": false
     }
   },
-  "active": "db79be7258f0f00b",
+  "active": "bb41477017a3b5c4",
   "lastOpenFiles": [
+    "1-Primo Anno/Algoritmi e strutture dati/Modulo2/Tecniche algoritmiche/Algoritmi Greedy.md",
+    "1-Primo Anno/Algoritmi e strutture dati/Modulo1/Analisi di costo/Notazione asintotica.md",
+    "1-Primo Anno/Algoritmi e strutture dati/Modulo1/Analisi di costo/Equazioni di ricorrenza.md",
+    "1-Primo Anno/Algoritmi e strutture dati/Modulo1/Analisi di costo/Analisi ammortizzata.md",
+    "1-Primo Anno/Algebra e geometria/Teorema spettrale.md",
     "1-Primo Anno/Algebra e geometria/Simmetria.md",
     "1-Primo Anno/Algebra e geometria/Introduzione.md",
     "1-Primo Anno/Algebra e geometria/Cambio di base.md",
@@ -263,14 +268,6 @@
     "1-Primo Anno/Algebra e geometria/Spazio vettoriale/Spazio vettoriale.md",
     "1-Primo Anno/Algebra e geometria/Spazio vettoriale/Sottospazio vettoriale.md",
     "1-Primo Anno/Algebra e geometria/Spazio vettoriale/Sottospazio generato.md",
-    "1-Primo Anno/Algoritmi e strutture dati/Modulo2/Grafi/desktop.ini",
-    "1-Primo Anno/Algoritmi e strutture dati/Modulo1/alberi/desktop.ini",
-    "3-Terzo anno/Ingegneria del software/design pattern/desktop.ini",
-    "3-Terzo anno/Basi di Dati/SQL/desktop.ini",
-    "3-Terzo anno/Basi di Dati/algebra relazionale/desktop.ini",
-    "2-Secondo Anno/Tecnologie Web/Progetto/desktop.ini",
-    "2-Secondo Anno/Calcolo Numerico/Numeri finiti ed errori/desktop.ini",
-    "3-Terzo anno/desktop.ini",
     "1-Primo Anno/Algebra e geometria/Spazio vettoriale/Sottospazi vettoriali di R3.md",
     "1-Primo Anno/Algebra e geometria/Spazio vettoriale/Sottospazi vettoriali di R2.md",
     "1-Primo Anno/Algebra e geometria/Spazio vettoriale/Indipendenza lineare.md",
@@ -284,11 +281,14 @@
     "1-Primo Anno/Algebra e geometria/Sistema lineare/Algoritmo di Gauss.md",
     "1-Primo Anno/Algebra e geometria/Ortogonalità/Sottospazio ortogonale.md",
     "1-Primo Anno/Algebra e geometria/Ortogonalità/Proiezioni ortogonali.md",
-    "1-Primo Anno/Algebra e geometria/Ortogonalità/Ortogonalità.md",
-    "1-Primo Anno/Algebra e geometria/Ortogonalità/Matrice ortogonale.md",
-    "1-Primo Anno/Algebra e geometria/Ortogonalità/Base ortonormale.md",
-    "1-Primo Anno/Algebra e geometria/Ortogonalità/Base ortogonale.md",
-    "1-Primo Anno/Algebra e geometria/Ortogonalità/Applicazione ortogonale.md",
+    "1-Primo Anno/Algoritmi e strutture dati/Modulo2/Grafi/desktop.ini",
+    "1-Primo Anno/Algoritmi e strutture dati/Modulo1/alberi/desktop.ini",
+    "3-Terzo anno/Ingegneria del software/design pattern/desktop.ini",
+    "3-Terzo anno/Basi di Dati/SQL/desktop.ini",
+    "3-Terzo anno/Basi di Dati/algebra relazionale/desktop.ini",
+    "2-Secondo Anno/Tecnologie Web/Progetto/desktop.ini",
+    "2-Secondo Anno/Calcolo Numerico/Numeri finiti ed errori/desktop.ini",
+    "3-Terzo anno/desktop.ini",
     "source/content/latexsheet-a4.pdf",
     "source/content/template",
     "source/content/immagini/Untitled-1.webp",

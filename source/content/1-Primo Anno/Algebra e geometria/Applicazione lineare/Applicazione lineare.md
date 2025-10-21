@@ -3,7 +3,9 @@ tags: []
 aliases: 
 data: "`2024-08-31 20:05`"
 ---
-- Fisso uno [[Spazio vettoriale]] V e una sua [[Base]] $\beta = v_1,...,v_n$ ordinata, poi prendo un vettore $v \in V$ t.c le sue [[Coordinate rispetto a una base||coordinate]] rispetto a $\beta$ sono$$v_{\beta}=\lambda_{1},...,\lambda_{n}:\  v=\lambda_1 v_1+...+\lambda_n v_n$$Ora considero la funzione $f_{\beta}: V\rightarrow \mathbb{R}^{n}$ definita come $v \rightarrow v_{\beta}$, ovvero una funzione che preso un vettore ci associa le sue coordinate rispetto ad una determinata base $\beta$, si dimostra che:
+- Fisso uno [[Spazio vettoriale]] V e una sua [[Base]] $\beta = v_1,...,v_n$ ordinata, poi prendo un vettore $v \in V$ t.c le sue [[Coordinate rispetto a una base||coordinate]] rispetto a $\beta$ sono
+	- $$v_{\beta}=\lambda_{1},...,\lambda_{n}:\  v=\lambda_1 v_1+...+\lambda_n v_n$$
+- Ora considero la funzione $f_{\beta}: V\rightarrow \mathbb{R}^{n}$ definita come $v \rightarrow v_{\beta}$, ovvero una funzione che preso un vettore ci associa le sue coordinate rispetto ad una determinata base $\beta$, si dimostra che:
 	- $f_\beta$ è [[iniettiva]].
 	- $f_\beta$ è [[Suriettiva]].
 	- $f_\beta$ rispetta la somma e il prodotto per scalari.
@@ -34,7 +36,8 @@ data: "`2024-08-31 20:05`"
 	- $f$ lineare $\implies f(0_{V})=0_{W}$
 		- data una funzione $f:V \rightarrow W$ lineare, allora l'elemento neutro di V($0_V$) è mappato nell'elemento neutro di W($0_{W}$). è importante sapere che $f(0_{V})\ne 0_{W}\implies f$ non lineare e ciò è utile per controllare la linearità di un'applicazione.
 		- #### Dimostrazione:
-			- si dimostra con la seguente:$$f(0_{V})=f(0\cdot 0_{V})= 0\cdot f(0_{V})=0_{W}\in W$$
+			- si dimostra con la seguente:
+				- $$f(0_{V})=f(0\cdot 0_{V})= 0\cdot f(0_{V})=0_{W}\in W$$
 	- $f$ lineare $\implies ker(f)\le V$
 		- ovvero che data una funzione $f:V \rightarrow W$ lineare, allora il suo [[Kernel]] è [[Sottospazio vettoriale||sottospazio]] di V
 		- #### Dimostrazione:

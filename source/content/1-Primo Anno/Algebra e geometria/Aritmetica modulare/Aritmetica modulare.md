@@ -22,7 +22,7 @@ data: "`2024-08-31 20:05`"
 			- 2)$ac \equiv_{n}bd$ 
 	- ## Classi di congruenza
 		- Siano $a,n \in \mathbb{Z}$. Si chiama _classe di congruenza modulo $n$_ e si indica con $[a]_{n}$ l'insieme di numeri interi congrui ad $a$ modulo $n$:
-			- $$\begin{array} [a]_{n}=\{b\in \mathbb{Z}|b\equiv_{n}a\}=\{b\in \mathbb{Z}|n\  \text{divide}\ b-a\}=\\ \\ =\{b\in \mathbb{Z}|b-a=kn:k\in \mathbb{Z}\}=\{a+kn|k\in \mathbb{Z}\} \end{array} $$
+			- $$\begin{array}\  [a]_{n}=\{b\in \mathbb{Z}|b\equiv_{n}a\}=\{b\in \mathbb{Z}|n\  \text{divide}\ b-a\}=\\ \\ =\{b\in \mathbb{Z}|b-a=kn:k\in \mathbb{Z}\}=\{a+kn|k\in \mathbb{Z}\} \end{array} $$
 		- Si chiama insieme degli _interi modulo $n$_, e si indica con $\mathbb{Z}_{n}$, l'insieme delle classi di congruenza modulo $n$:
 			- $$\mathbb{Z}_{n}=\{[a]_{n}|a \in \mathbb{Z}\}$$
 		- _Definizione sull'insieme $\mathbb{Z}_{n}$ delle operazioni di somma e prodotto_:
@@ -79,7 +79,7 @@ data: "`2024-08-31 20:05`"
 				- $$7:2=3\ \ r=1$$
 				- $$2:1=2\ \ r=0$$
 			- Quindi $mcd(30,67)=1$ e la Proposizione 3 mi assicura che esiste l'inverso che si calcola trovando il valore $r$ ripercorrendo a ritroso l'algoritmo: 
-				- $$\begin{array} 1=7-3*2=7-3(30-4*7)=13*7-30*3= \\ \\ =13*(67-2*30)-3*30=-29*30+13*67 \end{array} $$
+				- $$\begin{array}\  1=7-3*2=7-3(30-4*7)=13*7-30*3= \\ \\ =13*(67-2*30)-3*30=-29*30+13*67 \end{array} $$
 				- Così per l'identità di Bézout 
 					- $$1=-29*30+13*67$$
 				- in cui $r=-29$ e Quindi 

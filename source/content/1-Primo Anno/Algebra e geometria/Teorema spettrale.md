@@ -23,7 +23,7 @@ data: "`2024-08-31 20:05`"
 		- Ora calcolo il [[polinomio caratteristico]] di $A$ 
 			- $$p_{A}(x)=det(A-xI)=det(\begin{pmatrix}1-x&1&1\\1&1-x&1\\1&1&1-x\end{pmatrix})$$
 		- Che risolto usando [[Regola di Sarrus||Sarrus]] mi risulta 
-			- $$\begin{array} (1-x)^{3}+1+1-[(1-x+1-x+1-x)]=\\ \\ =3x^{2}-x^{3}=x^{2}(3-x)=-x^{2}(-3+x)\end{array} $$
+			- $$\begin{array}\ (1-x)^{3}+1+1-[(1-x+1-x+1-x)]=\\ \\ =3x^{2}-x^{3}=x^{2}(3-x)=-x^{2}(-3+x)\end{array} $$
 		- calcolo la [[molteplicità algebrica]] con gli autovalori:
 			- $\lambda_{1}=0$  $m_{a}(0)=2$
 			- $\lambda_{1}=3$  $m_{a}(3)=1$
@@ -53,7 +53,8 @@ data: "`2024-08-31 20:05`"
 		- Quindi risulta che $v_{1}\not \bot v_{2}$
 		- Trovo la base ortogonale usando Gram-Schmidt 
 			- $u_{1}=v_{1}$
-			- $$u_{2}=v_{2}-proj_{u_{1}}(v_{2})=(-1,0,1)-\frac{<v_{2},u_{1}>}{<u_{1},u_{1}>}u_{1}=$$$$=(-1,0,1)-\frac{1}{1+1}(-1,1,0)=\left( -\frac{1}{2 },-\frac{1}{2},1 \right)$$
+			- $$u_{2}=v_{2}-proj_{u_{1}}(v_{2})=(-1,0,1)-\frac{<v_{2},u_{1}>}{<u_{1},u_{1}>}u_{1}=$$
+			- $$=(-1,0,1)-\frac{1}{1+1}(-1,1,0)=\left( -\frac{1}{2 },-\frac{1}{2},1 \right)$$
 			- Infine risulta che$$\{(-1,1,0),\left( -\frac{1}{2 },-\frac{1}{2},1 \right),(1,1,1)\}$$è base ortogonale di autovettori.
 			- $||v_{1}||=\sqrt{(-1)^{2}+1+0}=\sqrt{2}$
 			- $||v_{2}||=\sqrt{\frac{1}{4}+\frac{1}{4}+1}=\frac{\sqrt{6}}{2}$

@@ -22,13 +22,13 @@ data: "`2024-08-31 20:05`"
 	- Per prima cosa si scrive la matrice $A$ associata ad $f$
 		- $$A=\begin{pmatrix}1&-1&0\\1&0&2\end{pmatrix}$$
 	- Quindi applico la definizione di controimmagine 
-		- $$\begin{array} f^{-1}(2,-3)=\underline{x} \in \mathbb{R}^{3}|f(\underline{x})=(2,-3)=\\ \\ =\underline{x} \in \mathbb{R}^{3}|A \underline{x}=(2,-3)\end{array} $$
+		- $$\begin{array}\  f^{-1}(2,-3)=\underline{x} \in \mathbb{R}^{3}|f(\underline{x})=(2,-3)=\\ \\ =\underline{x} \in \mathbb{R}^{3}|A \underline{x}=(2,-3)\end{array} $$
 	- Allora la controimmagine sarà l'insieme delle soluzioni del sistema lineare $A \underline{x}=(2,-3)$ da cui la matrice è 
 		- $$(A|\underline{b})=\begin{pmatrix}1&-1&0|&2\\1&0&2|&-3\end{pmatrix}$$ 
 	- Applicando [[Algoritmo di Gauss||gauss]] si ottiene che 
 		- $$rr(A)=2=rr(A|\underline{b})<3=n°incognite$$ 
 	- Per cui il sistema ha infinite soluzioni dipendenti da $3-2=1$ parametri e si scrive: 
-		- $$\begin{array}f^{-1}(2,-3)=(-2x_{3}-3,-2x_{3}-5,x_{3})|x_{3}\in \mathbb{R}=\\ \\ =(-3,5,0)+x_{3}(-2,-2,1)|x_{3}\in \mathbb{R}\end{array}$$
+		- $$\begin{array}\ f^{-1}(2,-3)=(-2x_{3}-3,-2x_{3}-5,x_{3})|x_{3}\in \mathbb{R}=\\ \\ =(-3,5,0)+x_{3}(-2,-2,1)|x_{3}\in \mathbb{R}\end{array}$$
 - ## Proposizione ^70afd1
 	- ### Soluzione di un sistema lineare ^07e889
 		- la controimmagine di un'[[Applicazioni lineari definite da una matrice]] $A$ è definita come l'insieme delle soluzioni del sistema lineare.
@@ -45,7 +45,7 @@ data: "`2024-08-31 20:05`"
 			- Dalle ipotesi so che $f^{-1}(w)\ne \emptyset$ quindi esiste per forza un $v\in f^{-1}(w)$ per cui $f(v)=w$ allora $f^{-1}(w)$ si può scrivere come:
 				- $$f^{-1}(w)=f^{-1}(f(v))$$ 
 			- E per la definizione di controimmagine: 
-				- $$\begin{array}f^{-1}(f(v))=v'\in V|f(v')=f(v)=v' \in V|f(v')-f(v)=\\ \\ =0=v' \in V|f(v'-v)=\underline{0}\end{array}$$
+				- $$\begin{array}\ f^{-1}(f(v))=v'\in V|f(v')=f(v)=v' \in V|f(v')-f(v)=\\ \\ =0=v' \in V|f(v'-v)=\underline{0}\end{array}$$
 			- Quindi l'insieme $v' \in V|f(v'-v)= \underline{0}$ non è altro che $v' \in V|(v'-v)\in ker(f)$ Per cui consegue che 
 				- $$f^{-1}(w)=v' \in V |(v'-v)\in ker(f)$$
 			- Ora fissato $z=v'-v\in ker(f)$ si ha che $v'=v+z\in V$ e allora la controimmagine può essere scritta come 

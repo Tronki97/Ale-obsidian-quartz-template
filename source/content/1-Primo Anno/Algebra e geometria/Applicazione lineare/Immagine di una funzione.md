@@ -34,7 +34,7 @@ data: "`2024-08-31 20:05`"
 	- suppongo di avere un' [[Applicazioni lineari definite da una matrice]] 
 		- $$A=\begin{pmatrix}1&3&2&1&1\\ 2&6&5&3&1\\0&0&4&4&-4\end{pmatrix}$$
 	- Con $L_{A}:\mathbb{R}^{5} \rightarrow \mathbb{R}^{3}$. se viene chiesto di calcolare $Im(L_{A})$, sfrutto la proposizione precedente. per cui prendo la base canonica $\beta=e_{1},...,e_{5}$ di $\mathbb{R}^{5}$, e calcolo $f(e_{1}),...,f(e_{5})$, ottenendo: 
-		- $$\begin{array} Im(L_{A})=\langle{L_{A}(e_{1}),...,L_{A}(e_{5})}\rangle=\\ \\ =\langle{(1,2,0),(3,6,0),(2,5,4),(1,3,4),(1,1,-4)}\rangle \end{array} $$ 
+		- $$\begin{array}\  Im(L_{A})=\langle{L_{A}(e_{1}),...,L_{A}(e_{5})}\rangle=\\ \\ =\langle{(1,2,0),(3,6,0),(2,5,4),(1,3,4),(1,1,-4)}\rangle \end{array} $$ 
 		- Tale [[Sottospazio vettoriale||sottospazio]] non è altro che $A^{T}$ ovvero la [[Matrici#^9fad89|trasposta]] di $A$ 
 	- Procedendo, per il [[Teorema del completamento#^9c1905||corollario del teorema del completamento]] so che questa non può essere una base di $Im(L_{A})$, perché questa vive nel codominio $\mathbb{R}^{3}$, e i vettori in questione sono 5. allora uso l' [[Algoritmo di Gauss]] in modo diretto e trovo una base del [[Sottospazio generato]] (l'ho risolto su carta e funziona)
 		- $$(1,2,0),(0,1,4)$$ 

@@ -34,7 +34,7 @@ data: "`2024-08-31 20:05`"
 			- Se so che $rk(A)=rc(A)=n$ e che $Im(L_{A})=\langle{(c_1,...,c_n)}\rangle$ allora $c_1,...,c_n$ sono linearmente indipendenti e generano $Im(L_{A})$: sono [[Base]] dell'immagine. Allora
 				- $$dim(Im(L_{A}))=n$$
 			- Ora per il [[Teorema della dimensione]] devo avere che 
-				- $$\begin{array} dim(\mathbb{R}^{n})=dim(ker(L_{A}))+dim(Im(L_{A}))\iff \\ \\ \iff n=dim(ker(L_{A}))+n\iff dim(ker(L_{A}))=0\end{array} $$
+				- $$\begin{array} \ dim(\mathbb{R}^{n})=dim(ker(L_{A}))+dim(Im(L_{A}))\iff \\ \\ \iff n=dim(ker(L_{A}))+n\iff dim(ker(L_{A}))=0\end{array} $$
 			- Per cui ho dimostrato che $L_{A}$ è [[iniettiva]] e [[Suriettiva]], e in particolare che $dim(ker(L_{A}))=0$ ovvero che $ker(L_{A})=(0,...,0)$.
 			- Ora posso scrivere per il [[teorema di struttura per sistemi lineari]] la soluzione di $A \underline{x}=\underline{b}$ come
 				- $$S=v+z|z\in ker(L_{A})$$
@@ -46,7 +46,7 @@ data: "`2024-08-31 20:05`"
 			- se $rk(A)=rc(A)<n$ e $Im(L_{A})=\langle{c_1,...,c_n}\rangle$ allora significa $c_1,...,c_n$, sono [[Indipendenza lineare||linearmente indipendenti]] e perciò:
 				- $$dim(Im(L_{A}))=rc(A)<n$$
 			- Poi, sempre per il teorema della dimensione devo avere che: 
-				- $$\begin{array} dim(\mathbb{R}^{n})=dim(ker(L_{A}))+dim(Im(L_{A}))\iff \\ \\ \iff n=dim(ker(L_{A}))+rk(A) \end{array} $$
+				- $$\begin{array}\  dim(\mathbb{R}^{n})=dim(ker(L_{A}))+dim(Im(L_{A}))\iff \\ \\ \iff n=dim(ker(L_{A}))+rk(A) \end{array} $$
 				- E ciò avviene allora $\iff$
 					- $$dim(ker(L_{A}))=n-rk(A)>1$$
 				- Poi per il [[teorema di struttura per sistemi lineari]] la soluzione di $A \underline{x}=\underline{b}$ può essere scritta come: 
